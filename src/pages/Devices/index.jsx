@@ -1,6 +1,6 @@
 import {VStack} from '@chakra-ui/react';
 import {useMemo} from 'react';
-import Table from '../../components/DataTable';
+import Table from '../../components/Table/DataTable';
 import Toolbar from './Toolbar';
 
 export default () => {
@@ -18,7 +18,7 @@ export default () => {
     const data = [];
 
     return (
-        <VStack spacing="8px">
+        <VStack spacing="20px">
             <Toolbar/>
             <Table columns={columns} data={data}/>
         </VStack>

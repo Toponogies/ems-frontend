@@ -18,15 +18,17 @@ import {
 import React from "react";
 import DrawerContainer from "./DrawerContainer";
 
-export default ({data}) => {
+export default (props) => {
     const {isOpen, onOpen, onClose} = useDisclosure()
     const btnRef = React.useRef()
+    const {page} = props
 
     return (
         <HStack spacing="10px">
-            <Heading>Port</Heading>
+            <Heading>{page}</Heading>
             <Tooltip label="Choose Inventory type">
-                <IconButton icon={<FaSearch/>} size={"sm"} ref={btnRef} colorScheme='blue' onClick={onOpen} aria-label={"Choose Inventory type"}/>
+                <IconButton icon={<FaSearch/>} size={"sm"} ref={btnRef} colorScheme='blue' onClick={onOpen}
+                            aria-label={"Choose Inventory type"}/>
             </Tooltip>
             <Drawer
                 isOpen={isOpen}
@@ -40,7 +42,7 @@ export default ({data}) => {
                     <DrawerHeader>Inventory type</DrawerHeader>
 
                     <DrawerBody>
-                        <DrawerContainer/>
+                        <DrawerContainer page={page}/>
                     </DrawerBody>
 
                     <DrawerFooter>
