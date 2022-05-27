@@ -1,0 +1,59 @@
+View:App
+    TabList [
+        Devices
+        Inventory
+        Credentials
+    ]
+
+View:Device
+    Toolbar (icon button w/ tooltip; onClick = dialog) [
+        Resync
+        Test
+        Update
+        Delete
+        CheckInfo
+        --spacer--
+        Add (primary)
+    ]
+    Table (selectable) [
+        id
+        label
+        credential
+        port
+        ip
+    ]
+
+View:Inventory
+    Sidebar (collapsable)
+        Item "Interface"
+        Item "Port"
+    Toolbar (icon button, tooltip, onClick = dialog) [
+        Dropdown
+            Label "Device"
+        --spacer--
+        Update
+        Delete
+        CheckInfo
+        Add
+    ]
+    Table (selectable) [
+        id
+        name
+        state
+        ip
+        netmask
+    ]
+
+View:Credentials
+    Toolbar (icon button, tooltip, onClick = dialog) [
+        Update
+        Delete
+        --spacer--
+        Add
+    ]
+    Table (selectable) [
+        id
+        username
+        password (masked)
+        label
+    ]
