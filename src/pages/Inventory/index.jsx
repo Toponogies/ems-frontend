@@ -1,5 +1,5 @@
 import {VStack} from '@chakra-ui/react';
-import DeviceDropDown from "./DeviceDropDown";
+import DropDown from "./DropDown";
 import InventoryDrawer from "../../components/Drawer/InventoryDrawer";
 import {useSelector} from "react-redux";
 import Interface from "./Interface";
@@ -9,14 +9,21 @@ export default () => {
     const {page} = useSelector((state) => state.inventoryPageSetter)
 
     const Page = () => {
-        if (page === "Port") return <Port/>
-        else if (page === "Interface") return <Interface/>
+        switch (page) {
+            case "Port":
+                return <Port/>
+            case "Interface":
+                return <Interface/>
+            // TODO: Not found page
+        }
     }
+
+    const data = []
 
     return (
         <VStack spacing="20px">
             <InventoryDrawer page={page}/>
-            <DeviceDropDown/>
+            <DropDown data={data}/>
             <Page/>
         </VStack>
     );
