@@ -1,7 +1,7 @@
 import { VStack } from '@chakra-ui/react';
 import { useMemo } from 'react';
 import Table from '../../components/Table/DataTable';
-import Toolbar from './Toolbar';
+import Toolbar from './Toolbar/Toolbar';
 
 export default () => {
     const columns = useMemo(

@@ -1,10 +1,8 @@
 import {
-    Button,
     Drawer,
     DrawerBody,
     DrawerCloseButton,
     DrawerContent,
-    DrawerFooter,
     DrawerHeader,
     DrawerOverlay,
     Heading,
@@ -45,12 +43,6 @@ export default (props) => {
                         <DrawerContainer page={page}/>
                     </DrawerBody>
 
-                    <DrawerFooter>
-                        <Button variant='outline' mr={3} onClick={onClose}>
-                            Cancel
-                        </Button>
-                        <Button colorScheme='blue'>Choose</Button>
-                    </DrawerFooter>
                 </DrawerContent>
             </Drawer>
         </HStack>);
