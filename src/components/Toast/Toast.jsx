@@ -1,5 +1,3 @@
-import React from "react";
-
 export default (props) => {
     const {toast, title, description, status} = props;
     return (
@@ -7,7 +5,7 @@ export default (props) => {
             title: title,
             description: description,
             status: status,
-            duration: 9000,
+            duration: 3500,
             isClosable: true
         })
     );

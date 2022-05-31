@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 
 export default (props) => {
-    const {isOpen, onClose, cancelRef, action} = props;
+    const {isOpen, onClose, cancelRef, action, onSubmit} = props;
 
     return (
         <AlertDialog
@@ -33,7 +33,7 @@ export default (props) => {
                         <Button ref={cancelRef} onClick={onClose}>
                             Cancel
                         </Button>
-                        <Button colorScheme="red" onClick={onClose} ml={3}>
+                        <Button colorScheme="red" onClick={onSubmit} ml={3}>
                             Confirm
                         </Button>
                     </AlertDialogFooter>
