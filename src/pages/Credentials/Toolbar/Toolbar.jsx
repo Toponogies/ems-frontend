@@ -1,4 +1,4 @@
-import {HStack, Spacer} from '@chakra-ui/react';
+import {HStack, Spacer} from "@chakra-ui/react";
 import Add from "./Add";
 import Update from "./Update";
 import Delete from "./Delete";

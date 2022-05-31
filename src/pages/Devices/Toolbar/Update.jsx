@@ -1,9 +1,9 @@
-import {IconButton, Tooltip, useDisclosure} from '@chakra-ui/react';
-import {FaPen} from 'react-icons/fa';
+import {IconButton, Tooltip, useDisclosure} from "@chakra-ui/react";
+import {FaPen} from "react-icons/fa";
 import FormModal from "../../../components/Forms/FormModal";
 
 export default () => {
-    const { isOpen, onOpen, onClose } = useDisclosure()
+    const {isOpen, onOpen, onClose} = useDisclosure();
 
     return (
         <>

@@ -5,4 +5,4 @@ export default configureStore({
     reducer: {
         inventoryPageSetter: inventoryPageSetterReducer
     }
-})
+});

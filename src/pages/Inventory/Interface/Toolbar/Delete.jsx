@@ -1,9 +1,9 @@
-import {IconButton, Tooltip, useDisclosure} from '@chakra-ui/react';
-import {FaTrash} from 'react-icons/fa';
+import {IconButton, Tooltip, useDisclosure} from "@chakra-ui/react";
+import {FaTrash} from "react-icons/fa";
 import Dialog from "../../../../components/Dialog/Dialog";
 
 export default () => {
-    const { isOpen, onOpen, onClose } = useDisclosure()
+    const {isOpen, onOpen, onClose} = useDisclosure();
 
     return (
         <>

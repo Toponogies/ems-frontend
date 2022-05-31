@@ -8,7 +8,7 @@ export default (props) => {
             {data.map((value) => {
                 return (
                     <option value={value.id}>{value.label}</option>
-                )
+                );
             })}
         </Select>);
 };

@@ -1,16 +1,16 @@
-import {VStack} from '@chakra-ui/react';
-import {useMemo} from 'react';
-import Table from '../../components/Table/DataTable';
-import Toolbar from './Toolbar/Toolbar';
+import {VStack} from "@chakra-ui/react";
+import {useMemo} from "react";
+import Table from "../../components/Table/DataTable";
+import Toolbar from "./Toolbar/Toolbar";
 
 export default () => {
     const columns = useMemo(
         () => [
-            {Header: 'ID', accessor: 'id'},
-            {Header: 'Label', accessor: 'label'},
-            {Header: 'Credential', accessor: 'credential'},
-            {Header: 'Port', accessor: 'port'},
-            {Header: 'IP Address', accessor: 'ip'},
+            {Header: "ID", accessor: "id"},
+            {Header: "Label", accessor: "label"},
+            {Header: "Credential", accessor: "credential"},
+            {Header: "Port", accessor: "port"},
+            {Header: "IP Address", accessor: "ip"}
         ],
         []
     );
