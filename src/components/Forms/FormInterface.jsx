@@ -14,16 +14,16 @@ export default () => {
             </FormControl>
 
             <FormControl isRequired={true}>
-                <FormLabel htmlFor='state'>State</FormLabel>
-                <Select id='state'>
+                <FormLabel htmlFor="state">State</FormLabel>
+                <Select id="state">
                     <option>Enabled</option>
                     <option>Disabled</option>
                 </Select>
             </FormControl>
 
             <FormControl isRequired={true}>
-                <FormLabel htmlFor='dhcp'>DHCP</FormLabel>
-                <Select id='dhcp'>
+                <FormLabel htmlFor="dhcp">DHCP</FormLabel>
+                <Select id="dhcp">
                     <option>Enabled</option>
                     <option>Disabled</option>
                 </Select>
@@ -45,21 +45,21 @@ export default () => {
             </FormControl>
 
             <FormControl isRequired={true}>
-                <FormLabel htmlFor='networkDevice'>Network Device</FormLabel>
-                <Select id='networkDevice'>
+                <FormLabel htmlFor="networkDevice">Network Device</FormLabel>
+                <Select id="networkDevice">
                     <option>Device 1</option>
                     <option>Device 2</option>
                 </Select>
             </FormControl>
 
             <FormControl isRequired={true}>
-                <FormLabel htmlFor='port'>Port</FormLabel>
-                <Select id='port'>
+                <FormLabel htmlFor="port">Port</FormLabel>
+                <Select id="port">
                     <option>Port 1</option>
                     <option>Port 2</option>
                 </Select>
             </FormControl>
 
         </Flex>
-    )
+    );
 }

@@ -14,8 +14,8 @@ export default () => {
             </FormControl>
 
             <FormControl isRequired={true}>
-                <FormLabel htmlFor='credential'>Credential</FormLabel>
-                <Select id='credential'>
+                <FormLabel htmlFor="credential">Credential</FormLabel>
+                <Select id="credential">
                     <option>Credential 1</option>
                     <option>Credential 2</option>
                 </Select>
@@ -32,5 +32,5 @@ export default () => {
             </FormControl>
 
         </Flex>
-    )
+    );
 }

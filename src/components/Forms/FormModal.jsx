@@ -7,27 +7,26 @@ import {
     ModalContent,
     ModalFooter,
     ModalHeader,
-    ModalOverlay,
+    ModalOverlay
 } from "@chakra-ui/react";
 import FormCredential from "./FormCredential";
 import FormInterface from "./FormInterface";
 import FormDevice from "./FormDevice";
 
 export default (props) => {
-    const {isOpen, onClose, action, entity} = props
+    const {isOpen, onClose, action, entity, onSubmit} = props;
 
     const Form = () => {
         switch (entity) {
             case "Device":
-                return <FormDevice/>
+                return <FormDevice/>;
             case "Interface":
-                return <FormInterface/>
+                return <FormInterface/>;
             case "Credential":
-                return <FormCredential/>
+                return <FormCredential/>;
             // TODO: Not found page
         }
-    }
-
+    };
 
     return (
         <Modal onClose={onClose} isOpen={isOpen} isCentered size={"3xl"}>
@@ -41,8 +40,7 @@ export default (props) => {
                 <ModalFooter>
                     <Flex gap={"20px"}>
                         <Button onClick={onClose}>Close</Button>
-                        <Button colorScheme={"blue"} onClick={onClose}>Submit</Button>
-                        {/*TODO: Add handler*/}
+                        <Button colorScheme={"blue"} onClick={onSubmit}>Submit</Button>
                     </Flex>
                 </ModalFooter>
             </ModalContent>

@@ -1,16 +1,29 @@
-import {IconButton, Tooltip, useDisclosure} from '@chakra-ui/react';
-import {FaTrash} from 'react-icons/fa';
+import {IconButton, Tooltip, useDisclosure, useToast} from "@chakra-ui/react";
+import {FaTrash} from "react-icons/fa";
 import Dialog from "../../../components/Dialog/Dialog";
+import Toast from "../../../components/Toast/Toast";
 
 export default () => {
-    const { isOpen, onOpen, onClose } = useDisclosure()
+    const {isOpen, onOpen, onClose} = useDisclosure();
+    const toast = useToast();
+
+    const onSubmit = () => {
+        let toaster = {
+            toast: toast,
+            title: "Deleted a credential",
+            description: "A credential is deleted",
+            status: "success"
+        };
+        Toast(toaster);
+        onClose();
+    };
 
     return (
         <>
             <Tooltip label="Delete">
                 <IconButton textColor="red.500" icon={<FaTrash/>} aria-label={"Delete"} onClick={onOpen}/>
             </Tooltip>
-            <Dialog isOpen={isOpen} onClose={onClose} action={"Delete Credential"}/>
+            <Dialog isOpen={isOpen} onClose={onClose} action={"Delete Credential"} onSubmit={onSubmit}/>
         </>
     );
 };

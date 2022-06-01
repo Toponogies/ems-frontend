@@ -1,28 +1,18 @@
-import {HStack, IconButton, Spacer, Tooltip} from '@chakra-ui/react';
-import {
-    FaBolt,
-    FaInfoCircle,
-    FaUndo
-} from 'react-icons/fa';
+import {HStack, Spacer} from "@chakra-ui/react";
 import Add from "./Add";
 import Delete from "./Delete";
 import Update from "./Update";
+import Resync from "./Resync";
+import CheckInfo from "./CheckInfo";
 
 export default () => {
     return (
         <HStack spacing="8px" width="full">
             <Spacer/>
-            <Tooltip label="Resync">
-                <IconButton icon={<FaUndo/>} aria-label={"Resync"}/>
-            </Tooltip>
-            <Tooltip label="Test">
-                <IconButton icon={<FaBolt/>} aria-label={"Test"}/>
-            </Tooltip>
+            <Resync/>
             <Update/>
             <Delete/>
-            <Tooltip label="Check Info">
-                <IconButton icon={<FaInfoCircle/>} aria-label={"Check information"}/>
-            </Tooltip>
+            <CheckInfo/>
             <Add/>
         </HStack>
     );

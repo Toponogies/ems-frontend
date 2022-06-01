@@ -1,6 +1,6 @@
-import Credentials from '@/pages/Credentials';
-import Devices from '@/pages/Devices';
-import Inventory from '@/pages/Inventory';
+import Credentials from "@/pages/Credentials";
+import Devices from "@/pages/Devices";
+import Inventory from "@/pages/Inventory";
 import {
     Avatar,
     Box,
@@ -14,7 +14,7 @@ import {
     Tabs,
     Text,
     VStack
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 
 export default () => {
     return (
@@ -31,7 +31,7 @@ export default () => {
                             <Tab>Credentials</Tab>
                         </TabList>
 
-                        <Spacer />
+                        <Spacer/>
 
                         <HStack spacing="16px">
                             <Text>Dan Abrahmov</Text>
@@ -49,13 +49,13 @@ export default () => {
                         borderRadius="16px"
                     >
                         <TabPanel>
-                            <Devices />
+                            <Devices/>
                         </TabPanel>
                         <TabPanel>
-                            <Inventory />
+                            <Inventory/>
                         </TabPanel>
                         <TabPanel>
-                            <Credentials />
+                            <Credentials/>
                         </TabPanel>
                     </TabPanels>
                 </VStack>

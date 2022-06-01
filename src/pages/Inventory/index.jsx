@@ -1,4 +1,4 @@
-import {VStack} from '@chakra-ui/react';
+import {VStack} from "@chakra-ui/react";
 import DropDown from "./DropDown";
 import InventoryDrawer from "../../components/Drawer/InventoryDrawer";
 import {useSelector} from "react-redux";
@@ -6,19 +6,19 @@ import Interface from "./Interface";
 import Port from "./Port";
 
 export default () => {
-    const {page} = useSelector((state) => state.inventoryPageSetter)
+    const {page} = useSelector((state) => state.inventoryPageSetter);
 
     const Page = () => {
         switch (page) {
             case "Port":
-                return <Port/>
+                return <Port/>;
             case "Interface":
-                return <Interface/>
+                return <Interface/>;
             // TODO: Not found page
         }
-    }
+    };
 
-    const data = []
+    const data = [];
 
     return (
         <VStack spacing="20px">

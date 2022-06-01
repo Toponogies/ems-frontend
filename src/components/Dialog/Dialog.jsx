@@ -1,14 +1,16 @@
-import React from 'react';
+import React from "react";
 import {
     AlertDialog,
     AlertDialogBody,
-    AlertDialogContent, AlertDialogFooter,
+    AlertDialogContent,
+    AlertDialogFooter,
     AlertDialogHeader,
-    AlertDialogOverlay, Button
+    AlertDialogOverlay,
+    Button
 } from "@chakra-ui/react";
 
 export default (props) => {
-    const {isOpen, onClose, cancelRef, action} = props
+    const {isOpen, onClose, cancelRef, action, onSubmit} = props;
 
     return (
         <AlertDialog
@@ -19,7 +21,7 @@ export default (props) => {
         >
             <AlertDialogOverlay>
                 <AlertDialogContent>
-                    <AlertDialogHeader fontSize='xl' fontWeight='bold'>
+                    <AlertDialogHeader fontSize="xl" fontWeight="bold">
                         {action}
                     </AlertDialogHeader>
 
@@ -31,12 +33,12 @@ export default (props) => {
                         <Button ref={cancelRef} onClick={onClose}>
                             Cancel
                         </Button>
-                        <Button colorScheme='red' onClick={onClose} ml={3}>
+                        <Button colorScheme="red" onClick={onSubmit} ml={3}>
                             Confirm
                         </Button>
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialogOverlay>
         </AlertDialog>
-    )
+    );
 }

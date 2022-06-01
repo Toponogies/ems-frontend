@@ -1,8 +1,8 @@
-import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
-import { forwardRef, useEffect, useRef } from 'react';
-import { useRowSelect, useTable } from 'react-table';
+import {Table, Tbody, Td, Th, Thead, Tr} from "@chakra-ui/react";
+import {forwardRef, useEffect, useRef} from "react";
+import {useRowSelect, useTable} from "react-table";
 
-const IndeterminateCheckbox = forwardRef(({ indeterminate, ...rest }, ref) => {
+const IndeterminateCheckbox = forwardRef(({indeterminate, ...rest}, ref) => {
     const defaultRef = useRef();
     const resolvedRef = ref || defaultRef;
 
@@ -17,7 +17,7 @@ const IndeterminateCheckbox = forwardRef(({ indeterminate, ...rest }, ref) => {
     );
 });
 
-export default ({ columns, data }) => {
+export default ({columns, data}) => {
     const {
         getTableProps,
         getTableBodyProps,
@@ -25,21 +25,21 @@ export default ({ columns, data }) => {
         rows,
         prepareRow,
         selectedFlatRows,
-        state: { selectedRowIds },
+        state: {selectedRowIds}
     } = useTable(
         {
             columns,
-            data,
+            data
         },
         useRowSelect,
         (hooks) => {
             hooks.visibleColumns.push((columns) => [
                 // Let's make a column for selection
                 {
-                    id: 'selection',
+                    id: "selection",
                     // The header can use the table's getToggleAllRowsSelectedProps method
                     // to render a checkbox
-                    Header: ({ getToggleAllRowsSelectedProps }) => (
+                    Header: ({getToggleAllRowsSelectedProps}) => (
                         <div>
                             <IndeterminateCheckbox
                                 {...getToggleAllRowsSelectedProps()}
@@ -48,15 +48,15 @@ export default ({ columns, data }) => {
                     ),
                     // The cell can use the individual row's getToggleRowSelectedProps method
                     // to the render a checkbox
-                    Cell: ({ row }) => (
+                    Cell: ({row}) => (
                         <div>
                             <IndeterminateCheckbox
                                 {...row.getToggleRowSelectedProps()}
                             />
                         </div>
-                    ),
+                    )
                 },
-                ...columns,
+                ...columns
             ]);
         }
     );
@@ -69,7 +69,7 @@ export default ({ columns, data }) => {
                         <Tr {...headerGroup.getHeaderGroupProps()}>
                             {headerGroup.headers.map((column) => (
                                 <Th {...column.getHeaderProps()}>
-                                    {column.render('Header')}
+                                    {column.render("Header")}
                                 </Th>
                             ))}
                         </Tr>
@@ -83,7 +83,7 @@ export default ({ columns, data }) => {
                                 {row.cells.map((cell) => {
                                     return (
                                         <Td {...cell.getCellProps()}>
-                                            {cell.render('Cell')}
+                                            {cell.render("Cell")}
                                         </Td>
                                     );
                                 })}

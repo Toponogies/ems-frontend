@@ -7,11 +7,11 @@ export const inventoryPageSetterSlide = createSlice({
     },
     reducers: {
         setTo: (state, action) => {
-            state.page = action.payload
+            state.page = action.payload;
         }
     }
-})
+});
 
-export const {setTo} = inventoryPageSetterSlide.actions
+export const {setTo} = inventoryPageSetterSlide.actions;
 
-export default inventoryPageSetterSlide.reducer
+export default inventoryPageSetterSlide.reducer;
