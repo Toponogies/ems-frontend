@@ -12,7 +12,7 @@ export default () => {
             {Header: "IP Address", accessor: "ipAddress"},
             {Header: "Netmask", accessor: "netmask"},
             {Header: "Gateway", accessor: "gateway"},
-            {Header: "Port", accessor: "portId"}
+            {Header: "Port", accessor: "port"}
         ],
         []
     );

@@ -8,7 +8,7 @@ import store from "./reducers/store";
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
         <Provider store={store}>
-            <ChakraProvider store={store}>
+            <ChakraProvider>
                 <App/>
             </ChakraProvider>
         </Provider>

@@ -1,8 +1,10 @@
 import {configureStore} from "@reduxjs/toolkit";
-import inventoryPageSetterReducer from "./inventoryPageSetter";
+import inventoryReducer from "./inventory.reducer";
+import credentialReducer from "./credential.reducer";
 
 export default configureStore({
     reducer: {
-        inventoryPageSetter: inventoryPageSetterReducer
+        inventoryReducer: inventoryReducer,
+        credentialReducer: credentialReducer
     }
 });
