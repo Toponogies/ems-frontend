@@ -28,7 +28,7 @@ export default () => {
     return (
         <VStack spacing="20px">
             <Toolbar/>
-            <Table columns={columns} data={credentials}/>
+            <Table columns={columns} data={credentials} tableName={"Credential"}/>
         </VStack>
     );
 };
