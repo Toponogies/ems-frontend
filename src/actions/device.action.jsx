@@ -1,4 +1,4 @@
-import {createDevice, deleteDevice, getDevices, updateDevice} from "./apis/device.api";
+import {createDevice, deleteDevice, getDevices, resyncDevices, updateDevice} from "./apis/device.api";
 import {addDevice, editDevice, loadDevices, removeDevice} from "../reducers/device.reducer";
 
 const fetchAll = async (dispatch) => {
@@ -38,9 +38,20 @@ const remove = async (dispatch, id) => {
     }
 };
 
+const resync = async (dispatch, payload) => {
+    try {
+        await resyncDevices(payload);
+        let response = await getDevices();
+        dispatch(loadDevices(response.data));
+    } catch (error) {
+        return error.response;
+    }
+};
+
 export {
     fetchAll,
     add,
     update,
-    remove
+    remove,
+    resync
 };

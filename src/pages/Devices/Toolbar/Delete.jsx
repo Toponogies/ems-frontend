@@ -3,7 +3,7 @@ import {FaTrash} from "react-icons/fa";
 import Dialog from "../../../components/Dialog/Dialog";
 import Toast from "../../../components/Toast/Toast";
 import {useDispatch, useSelector} from "react-redux";
-import {remove} from "../../../actions/credential.action";
+import {remove} from "../../../actions/device.action";
 
 export default () => {
     const {isOpen, onOpen, onClose} = useDisclosure();

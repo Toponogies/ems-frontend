@@ -24,3 +24,9 @@ export async function deleteDevice(id) {
         return res;
     });
 }
+
+export async function resyncDevices(payload) {
+    return await axios.post(`${API_ENDPOINTS.RESYNC}`, payload).then((res) => {
+        return res;
+    });
+}
