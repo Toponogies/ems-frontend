@@ -19,12 +19,12 @@ export const credentialSlide = createSlice({
         removeCredential: (state, action) => {
             state.credentials = state.credentials.filter(item => item.id !== action.payload);
         },
-        changeActiveCredential: (state, action) =>{
+        changeActiveCredentials: (state, action) =>{
             state.activeCredentials = action.payload
         }
     }
 });
 
-export const {loadCredentials, addCredential, editCredential, removeCredential, changeActiveCredential} = credentialSlide.actions;
+export const {loadCredentials, addCredential, editCredential, removeCredential, changeActiveCredentials} = credentialSlide.actions;
 
 export default credentialSlide.reducer;
