@@ -1,6 +1,8 @@
 import {Table, Tbody, Td, Th, Thead, Tr} from "@chakra-ui/react";
 import {forwardRef, useEffect, useRef} from "react";
 import {useRowSelect, useTable} from "react-table";
+import {useDispatch, useSelector} from "react-redux";
+import {changeActiveCredential} from "../../reducers/credential.reducer";
 
 const IndeterminateCheckbox = forwardRef(({indeterminate, ...rest}, ref) => {
     const defaultRef = useRef();
@@ -9,15 +11,16 @@ const IndeterminateCheckbox = forwardRef(({indeterminate, ...rest}, ref) => {
     useEffect(() => {
         resolvedRef.current.indeterminate = indeterminate;
     }, [resolvedRef, indeterminate]);
-
     return (
         <>
-            <input type="checkbox" ref={resolvedRef} {...rest} />
+            <input type={"checkbox"} ref={resolvedRef} {...rest} />
         </>
     );
 });
 
-export default ({columns, data}) => {
+export default ({columns, data, tableName}) => {
+    const dispatch = useDispatch();
+
     const {
         getTableProps,
         getTableBodyProps,
@@ -25,7 +28,6 @@ export default ({columns, data}) => {
         rows,
         prepareRow,
         selectedFlatRows,
-        state: {selectedRowIds}
     } = useTable(
         {
             columns,
@@ -60,6 +62,13 @@ export default ({columns, data}) => {
             ]);
         }
     );
+
+    if (tableName === "Credential") {
+        const {activeCredentials} = useSelector((state) => state.credentialReducer);
+        if (activeCredentials.length !== selectedFlatRows.length) {
+            dispatch(changeActiveCredential(selectedFlatRows.map((row) => row.original)));
+        }
+    }
 
     return (
         <>

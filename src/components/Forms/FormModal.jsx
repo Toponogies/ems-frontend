@@ -1,11 +1,8 @@
 import {
-    Button,
-    Flex,
     Modal,
     ModalBody,
     ModalCloseButton,
     ModalContent,
-    ModalFooter,
     ModalHeader,
     ModalOverlay
 } from "@chakra-ui/react";
@@ -14,7 +11,7 @@ import FormInterface from "./FormInterface";
 import FormDevice from "./FormDevice";
 
 export default (props) => {
-    const {isOpen, onClose, action, entity, onSubmit} = props;
+    const {isOpen, onClose, action, entity} = props;
 
     const Form = () => {
         switch (entity) {
@@ -23,7 +20,7 @@ export default (props) => {
             case "Interface":
                 return <FormInterface/>;
             case "Credential":
-                return <FormCredential/>;
+                return <FormCredential action={action} onClose={onClose}/>;
             // TODO: Not found page
         }
     };
@@ -37,12 +34,6 @@ export default (props) => {
                 <ModalBody>
                     <Form/>
                 </ModalBody>
-                <ModalFooter>
-                    <Flex gap={"20px"}>
-                        <Button onClick={onClose}>Close</Button>
-                        <Button colorScheme={"blue"} onClick={onSubmit}>Submit</Button>
-                    </Flex>
-                </ModalFooter>
             </ModalContent>
         </Modal>);
 }

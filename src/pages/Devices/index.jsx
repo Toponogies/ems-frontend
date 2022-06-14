@@ -10,7 +10,8 @@ export default () => {
             {Header: "Label", accessor: "label"},
             {Header: "Credential", accessor: "credential"},
             {Header: "Port", accessor: "port"},
-            {Header: "IP Address", accessor: "ip"}
+            {Header: "IP Address", accessor: "ipAddress"},
+            {Header: "Resync Status", accessor: "isResyncing"}
         ],
         []
     );

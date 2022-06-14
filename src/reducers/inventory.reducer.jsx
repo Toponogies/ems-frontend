@@ -1,7 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-export const inventoryPageSetterSlide = createSlice({
-    name: "inventoryPageSetter",
+export const inventorySlide = createSlice({
+    name: "inventorySlide",
     initialState: {
         page: "Port"
     },
@@ -12,6 +12,6 @@ export const inventoryPageSetterSlide = createSlice({
     }
 });
 
-export const {setTo} = inventoryPageSetterSlide.actions;
+export const {setTo} = inventorySlide.actions;
 
-export default inventoryPageSetterSlide.reducer;
+export default inventorySlide.reducer;

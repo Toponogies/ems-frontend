@@ -1,7 +1,7 @@
 import {Flex, useRadioGroup} from "@chakra-ui/react";
 import DrawerCard from "./DrawerCard";
 import {useDispatch} from "react-redux";
-import {setTo} from "../../reducers/inventoryPageSetter";
+import {setTo} from "../../reducers/inventory.reducer";
 
 export default (props) => {
     const options = ["Port", "Interface"];

@@ -6,7 +6,7 @@ import Interface from "./Interface";
 import Port from "./Port";
 
 export default () => {
-    const {page} = useSelector((state) => state.inventoryPageSetter);
+    const {page} = useSelector((state) => state.inventoryReducer);
 
     const Page = () => {
         switch (page) {
