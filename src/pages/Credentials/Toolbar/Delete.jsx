@@ -23,35 +23,24 @@ export default () => {
         } else {
             onOpen();
         }
-    }
+    };
 
     const onSubmit = async () => {
-        let toaster;
+        let response = await remove(dispatch, activeCredentials[0].id);
+        let toaster = {
+            toast: toast,
+            title: "Deleted a credential",
+            description: "A credential is deleted",
+            status: "success"
+        };
 
-        if (activeCredentials.length !== 1) {
+        if (response) {
             toaster = {
                 toast: toast,
-                title: "Unknown credential",
-                description: "Please select one and only one credential to delete",
+                title: "Fail to delete a credential",
+                description: response.data.message,
                 status: "error"
             };
-        } else {
-            let response = await remove(dispatch, activeCredentials[0].id);
-            toaster = {
-                toast: toast,
-                title: "Deleted a credential",
-                description: "A credential is deleted",
-                status: "success"
-            };
-
-            if (response) {
-                toaster = {
-                    toast: toast,
-                    title: "Fail to delete a credential",
-                    description: response.data.message,
-                    status: "error"
-                };
-            }
         }
         onClose();
         Toast(toaster);
