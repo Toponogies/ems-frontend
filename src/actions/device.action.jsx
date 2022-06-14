@@ -42,6 +42,7 @@ const resync = async (dispatch, payload) => {
     try {
         await resyncDevices(payload);
         let response = await getDevices();
+        // TODO: Load interfaces and ports too
         dispatch(loadDevices(response.data));
     } catch (error) {
         return error.response;
