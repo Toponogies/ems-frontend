@@ -2,7 +2,7 @@ import {Box, Button, FormControl, FormErrorMessage, FormLabel, Input, useToast} 
 import Toast from "../Toast/Toast";
 import {Field, Form, Formik} from "formik";
 import {useDispatch, useSelector} from "react-redux";
-import {add} from "../../actions/credential.action";
+import {add, update} from "../../actions/credential.action";
 
 export default (props) => {
     const toast = useToast();
@@ -10,19 +10,38 @@ export default (props) => {
     const dispatch = useDispatch();
 
     const onSubmit = async (values) => {
-        let toaster = {
-            toast: toast,
-            title: "Added a credential",
-            description: "A credential is added",
-            status: "success"
-        };
+        let toaster = {};
 
         if (action === "Add") {
             let response = await add(dispatch, values);
+            toaster = {
+                toast: toast,
+                title: "Added a credential",
+                description: "A credential is added",
+                status: "success"
+            };
+
             if (response) {
                 toaster = {
                     toast: toast,
                     title: "Fail to add a credential",
+                    description: response.data.message,
+                    status: "error"
+                };
+            }
+        } else if (action === "Update") {
+            let response = await update(dispatch, values.id, values);
+            toaster = {
+                toast: toast,
+                title: "Updated a credential",
+                description: "A credential is updated",
+                status: "success"
+            };
+
+            if (response) {
+                toaster = {
+                    toast: toast,
+                    title: "Fail to update a credential",
                     description: response.data.message,
                     status: "error"
                 };

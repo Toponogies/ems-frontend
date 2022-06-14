@@ -1,5 +1,5 @@
-import {createCredential, getCredentials} from "./apis/credential.api";
-import {addCredential, loadCredentials} from "../reducers/credential.reducer";
+import {createCredential, getCredentials, updateCredential} from "./apis/credential.api";
+import {addCredential, editCredential, loadCredentials} from "../reducers/credential.reducer";
 
 const fetchAll = async (dispatch) => {
     try {
@@ -19,7 +19,17 @@ const add = async (dispatch, payload) => {
     }
 };
 
+const update = async (dispatch, id, payload) => {
+    try {
+        const response = await updateCredential(id, payload);
+        dispatch(editCredential(response.data));
+    } catch (error) {
+        return error.response;
+    }
+};
+
 export {
     fetchAll,
-    add
+    add,
+    update
 };
