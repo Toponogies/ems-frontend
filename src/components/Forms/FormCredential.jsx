@@ -10,7 +10,7 @@ export default (props) => {
     const dispatch = useDispatch();
 
     const onSubmit = async (values) => {
-        let toaster = {};
+        let toaster;
 
         if (action === "Add") {
             let response = await add(dispatch, values);
@@ -31,6 +31,7 @@ export default (props) => {
             }
         } else if (action === "Update") {
             let response = await update(dispatch, values.id, values);
+
             toaster = {
                 toast: toast,
                 title: "Updated a credential",
@@ -47,18 +48,11 @@ export default (props) => {
                 };
             }
         }
-
-        Toast(toaster);
         onClose();
+        Toast(toaster);
     };
 
     const getInitData = () => {
-        let toaster = {
-            toast: toast,
-            title: "Unknown credential",
-            status: "error"
-        };
-
         if (action === "Add") {
             return {
                 name: "Name",
@@ -67,15 +61,8 @@ export default (props) => {
             };
         } else if (action === "Update") {
             const {activeCredentials} = useSelector((state) => state.credentialReducer);
-            if (activeCredentials.length !== 1) {
-                toaster.description = "Please select a credential to update";
-                Toast(toaster);
-                onClose();
-            } else {
-                return activeCredentials[0];
-            }
+            return activeCredentials[0];
         }
-
     };
 
     const validateName = (value) => {

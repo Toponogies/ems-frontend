@@ -1,9 +1,9 @@
-import {createCredential, getCredentials, updateCredential} from "./apis/credential.api";
-import {addCredential, editCredential, loadCredentials} from "../reducers/credential.reducer";
+import {createCredential, deleteCredential, getCredentials, updateCredential} from "./apis/credential.api";
+import {addCredential, editCredential, loadCredentials, removeCredential} from "../reducers/credential.reducer";
 
 const fetchAll = async (dispatch) => {
     try {
-        const response = await getCredentials();
+        let response = await getCredentials();
         dispatch(loadCredentials(response.data));
     } catch (error) {
         return error;
@@ -22,7 +22,17 @@ const add = async (dispatch, payload) => {
 const update = async (dispatch, id, payload) => {
     try {
         const response = await updateCredential(id, payload);
+        response.data.devices = payload.devices;
         dispatch(editCredential(response.data));
+    } catch (error) {
+        return error.response;
+    }
+};
+
+const remove = async (dispatch, id) => {
+    try {
+        await deleteCredential(id);
+        dispatch(removeCredential(id));
     } catch (error) {
         return error.response;
     }
@@ -31,5 +41,6 @@ const update = async (dispatch, id, payload) => {
 export {
     fetchAll,
     add,
-    update
+    update,
+    remove
 };

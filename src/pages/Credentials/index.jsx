@@ -13,14 +13,13 @@ export default () => {
             {Header: "ID", accessor: "id"},
             {Header: "Name", accessor: "name"},
             {Header: "Username", accessor: "username"},
-            {Header: "Password", accessor: "password"},
             {Header: "Related Devices", accessor: "devices"}
         ],
         []
     );
 
     useEffect(() => {
-        fetchAll(dispatch).then()
+        fetchAll(dispatch).then();
     }, []);
 
     const {credentials} = useSelector((state) => state.credentialReducer);

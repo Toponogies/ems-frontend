@@ -6,12 +6,18 @@ import App from "./layout/Main";
 import store from "./reducers/store";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-    <React.StrictMode>
-        <Provider store={store}>
-            <ChakraProvider>
-                <App/>
-            </ChakraProvider>
-        </Provider>
-    </React.StrictMode>
+    // <React.StrictMode>
+    //     <Provider store={store}>
+    //         <ChakraProvider>
+    //             <App/>
+    //         </ChakraProvider>
+    //     </Provider>
+    // </React.StrictMode>
+
+    <Provider store={store}>
+        <ChakraProvider>
+            <App/>
+        </ChakraProvider>
+    </Provider>
 );
 

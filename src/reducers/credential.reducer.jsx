@@ -3,8 +3,8 @@ import {createSlice} from "@reduxjs/toolkit";
 export const credentialSlide = createSlice({
     name: "credentialSlide",
     initialState: {
-        credentials: [{}],
-        activeCredentials: [{}]
+        credentials: [],
+        activeCredentials: []
     },
     reducers: {
         loadCredentials: (state, action) => {
