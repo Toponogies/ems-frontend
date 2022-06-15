@@ -1,27 +1,35 @@
 import {VStack} from "@chakra-ui/react";
-import {useMemo} from "react";
+import {useEffect, useMemo} from "react";
 import Table from "../../components/Table/DataTable";
 import Toolbar from "./Toolbar/Toolbar";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchAll} from "../../actions/device.action";
 
 export default () => {
+    const dispatch = useDispatch();
+
     const columns = useMemo(
         () => [
             {Header: "ID", accessor: "id"},
             {Header: "Label", accessor: "label"},
             {Header: "Credential", accessor: "credential"},
-            {Header: "Port", accessor: "port"},
+            {Header: "Port", accessor: "sshPort"},
             {Header: "IP Address", accessor: "ipAddress"},
-            {Header: "Resync Status", accessor: "isResyncing"}
+            {Header: "Resync Status", accessor: "resyncStatus"}
         ],
         []
     );
 
-    const data = [];
+    useEffect(() => {
+        fetchAll(dispatch).then();
+    }, []);
+
+    const {devices} = useSelector((state) => state.deviceReducer);
 
     return (
         <VStack spacing="20px">
             <Toolbar/>
-            <Table columns={columns} data={data}/>
+            <Table columns={columns} data={devices} tableName={"Device"}/>
         </VStack>
     );
 };

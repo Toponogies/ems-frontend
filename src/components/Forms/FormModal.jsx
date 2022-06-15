@@ -16,7 +16,7 @@ export default (props) => {
     const Form = () => {
         switch (entity) {
             case "Device":
-                return <FormDevice/>;
+                return <FormDevice action={action} onClose={onClose}/>;
             case "Interface":
                 return <FormInterface/>;
             case "Credential":

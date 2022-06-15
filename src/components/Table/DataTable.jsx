@@ -2,7 +2,8 @@ import {Table, Tbody, Td, Th, Thead, Tr} from "@chakra-ui/react";
 import {forwardRef, useEffect, useRef} from "react";
 import {useRowSelect, useTable} from "react-table";
 import {useDispatch, useSelector} from "react-redux";
-import {changeActiveCredential} from "../../reducers/credential.reducer";
+import {changeActiveCredentials} from "../../reducers/credential.reducer";
+import {changeActiveDevices} from "../../reducers/device.reducer";
 
 const IndeterminateCheckbox = forwardRef(({indeterminate, ...rest}, ref) => {
     const defaultRef = useRef();
@@ -27,7 +28,7 @@ export default ({columns, data, tableName}) => {
         headerGroups,
         rows,
         prepareRow,
-        selectedFlatRows,
+        selectedFlatRows
     } = useTable(
         {
             columns,
@@ -63,11 +64,19 @@ export default ({columns, data, tableName}) => {
         }
     );
 
-    if (tableName === "Credential") {
-        const {activeCredentials} = useSelector((state) => state.credentialReducer);
-        if (activeCredentials.length !== selectedFlatRows.length) {
-            dispatch(changeActiveCredential(selectedFlatRows.map((row) => row.original)));
-        }
+    switch (tableName) {
+        case "Credential":
+            const {activeCredentials} = useSelector((state) => state.credentialReducer);
+            if (activeCredentials.length !== selectedFlatRows.length) {
+                dispatch(changeActiveCredentials(selectedFlatRows.map((row) => row.original)));
+            }
+            break;
+        case "Device":
+            const {activeDevices} = useSelector((state) => state.deviceReducer);
+            if (activeDevices.length !== selectedFlatRows.length) {
+                dispatch(changeActiveDevices(selectedFlatRows.map((row) => row.original)));
+            }
+            break;
     }
 
     return (
