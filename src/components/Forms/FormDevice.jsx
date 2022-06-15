@@ -1,8 +1,15 @@
-import {Box, Button, FormControl, FormErrorMessage, FormLabel, Input, Select, useToast} from "@chakra-ui/react";
+import {
+    Box,
+    Button,
+    FormLabel,
+    useToast
+} from "@chakra-ui/react";
 import {useDispatch, useSelector} from "react-redux";
 import {add, update} from "../../actions/device.action";
 import Toast from "../Toast/Toast";
-import {Field, Form, Formik} from "formik";
+import {Form, Formik} from "formik";
+import {InputControl, SelectControl} from "formik-chakra-ui";
+import * as yup from "yup";
 
 export default (props) => {
     const toast = useToast();
@@ -53,132 +60,67 @@ export default (props) => {
         Toast(toaster);
     };
 
+    const {activeDevices} = useSelector((state) => state.deviceReducer);
+
     const getInitData = () => {
         if (action === "Add") {
             return {
-                label: "Label",
-                ipAddress: "IP Address",
-                sshPort: 22
+                label: "",
+                ipAddress: "",
+                sshPort: 22,
+                credential: undefined
             };
         } else if (action === "Update") {
-            const {activeDevices} = useSelector((state) => state.deviceReducer);
             return activeDevices[0];
         }
     };
 
-    const validateName = (value) => {
-        // let error;
-        // if (!value) {
-        //     error = "Name is required";
-        // } else if (value.toLowerCase() !== "naruto") {
-        //     error = "Jeez! You're not a fan 😱";
-        // }
-        // return error;
-    };
-
+    const validationSchema = yup.object({
+        label: yup.string().required(),
+        ipAddress: yup.string().required(),
+        sshPort: yup.number().required(),
+        credential: yup.string().required()
+    });
 
     return (
         <Formik
             initialValues={getInitData()}
             onSubmit={onSubmit}
+            validationSchema={validationSchema}
         >
-            <Form>
-                <Field name={"id"}>
-                    {({field}) => (
-                        <FormControl mb={4} isDisabled={true}>
-                            <FormLabel>ID</FormLabel>
-                            <Input
-                                id={"id"}
-                                {...field}
-                                placeholder="ID"
-                            />
-                        </FormControl>
-                    )}
-                </Field>
-                <Field name={"label"}
-                       validate={validateName}>
-                    {({field, form}) => (
-                        <FormControl mb={4} isInvalid={form.errors.name && form.touched.name}>
-                            <FormLabel>Name</FormLabel>
-                            <Input
-                                id={"label"}
-                                {...field}
-                                placeholder="Label"
-                            />
-                            <FormErrorMessage>{form.errors.name}</FormErrorMessage>
-                        </FormControl>
-                    )}
-                </Field>
-                <Field name={"credential"}
-                       validate={validateName}>
-                    {({field, form}) => (
-                        <FormControl mb={4} isInvalid={form.errors.name && form.touched.name}>
-                            <FormLabel>Credential</FormLabel>
-                            <Select
-                                id={"credential"}
-                                name={field.name}
-                                options={credentials}
-                                value={credentials
-                                    ? credentials.find((c) => form.values.credential = c.name)
-                                    : ""
-                                }
-                                onChange={(option) => {
-                                    form.values.credential = option.target.value;
-                                }}
-                            >
-                                {credentials.map((credential) => (
-                                    <option
-                                        key={credential.name}
-                                        value={credential.name}
-                                        id={credential.name}>
-                                        {credential.name}
-                                    </option>
-                                ))}
-                            </Select>
-                            <FormErrorMessage>{form.errors.name}</FormErrorMessage>
-                        </FormControl>
-                    )}
-                </Field>
+            {() => (
+                <Form>
+                    <InputControl mb={4} name={"id"} label={"ID"} isDisabled={true} inputProps={{placeholder: "ID"}}/>
 
-                <Field name={"ipAddress"}
-                       validate={validateName}>
-                    {({field, form}) => (
-                        <FormControl mb={4} isInvalid={form.errors.name && form.touched.name}>
-                            <FormLabel>IP Address</FormLabel>
-                            <Input
-                                id={"ipAddress"}
-                                {...field}
-                                placeholder="IP Address"
-                            />
-                            <FormErrorMessage>{form.errors.name}</FormErrorMessage>
-                        </FormControl>
-                    )}
-                </Field>
-                <Field name={"sshPort"}
-                       validate={validateName}>
-                    {({field, form}) => (
-                        <FormControl mb={4} isInvalid={form.errors.name && form.touched.name}>
-                            <FormLabel>Port</FormLabel>
-                            <Input
-                                id={"sshPort"}
-                                {...field}
-                                type="number"
-                                placeholder="22"
-                            />
-                            <FormErrorMessage>{form.errors.name}</FormErrorMessage>
-                        </FormControl>
-                    )}
-                </Field>
-                <Box align={"right"}>
-                    <Button margin={"10px"} onClick={onClose}>Close</Button>
-                    <Button
-                        colorScheme={"blue"}
-                        type={"submit"}
-                    >
-                        Submit
-                    </Button>
-                </Box>
-            </Form>
+                    <InputControl mb={4} name={"label"} label={"Label"} inputProps={{placeholder: "Label"}}/>
+
+                    <InputControl mb={4} name={"ipAddress"} label={"IP Address"} inputProps={{placeholder: "IP Address"}}/>
+
+                    <InputControl mb={4} name={"sshPort"} label={"SSH Port"} inputProps={{placeholder: "SSH Port"}}/>
+
+                    <FormLabel>Credential</FormLabel>
+                    <SelectControl mb={4}
+                                   name={"credential"}
+                                   selectProps={{placeholder: "Select a credential"}}>
+                        {credentials.map((credential) => (
+                            <option key={credential.name}
+                                    value={credential.name}>
+                                {credential.name}
+                            </option>
+                        ))}
+                    </SelectControl>
+
+                    <Box align={"right"}>
+                        <Button margin={"10px"} onClick={onClose}>Close</Button>
+                        <Button
+                            colorScheme={"blue"}
+                            type={"submit"}
+                        >
+                            Submit
+                        </Button>
+                    </Box>
+                </Form>
+            )}
         </Formik>
     );
 }
