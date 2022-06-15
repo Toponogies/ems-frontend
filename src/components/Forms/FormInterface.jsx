@@ -1,8 +1,11 @@
-import {Box, Button, FormControl, FormErrorMessage, FormLabel, Input, Select, useToast} from "@chakra-ui/react";
+import {Box, Button, FormLabel, useToast} from "@chakra-ui/react";
 import {useDispatch, useSelector} from "react-redux";
 import {add, update} from "../../actions/interface.action";
 import Toast from "../Toast/Toast";
-import {Field, Form, Formik} from "formik";
+import {Form, Formik} from "formik";
+import * as yup from "yup";
+import {InputControl, SelectControl} from "formik-chakra-ui";
+import {fetchPorts} from "../../actions/port.action";
 
 export default (props) => {
     const toast = useToast();
@@ -52,12 +55,27 @@ export default (props) => {
         Toast(toaster);
     };
 
+    const {devices} = useSelector((state) => state.deviceReducer);
+    let ports = [];
+
+    const onDeviceSelected = async (option) => {
+        ports = await fetchPorts();
+        console.log(option.target.value)
+        ports = ports.filter(p => p.networkDevice === option.target.value);
+        console.log(ports)
+    };
+
     const getInitData = () => {
         if (action === "Add") {
             return {
-                // name: "Name",
-                // username: "Username",
-                // password: "Password"
+                name: "",
+                ipAddress: "",
+                netmask: "",
+                gateway: "",
+                state: "",
+                dhcp: "",
+                networkDevice: undefined,
+                port: undefined
             };
         } else if (action === "Update") {
             const {activeInterfaces} = useSelector((state) => state.interfaceReducer);
@@ -65,230 +83,98 @@ export default (props) => {
         }
     };
 
-    const validateName = (value) => {
-        // let error;
-        // if (!value) {
-        //     error = "Name is required";
-        // } else if (value.toLowerCase() !== "naruto") {
-        //     error = "Jeez! You're not a fan 😱";
-        // }
-        // return error;
-    };
+    const validationSchema = yup.object({
+        name: yup.string().required(),
+        ipAddress: yup.string().required(),
+        port: yup.string().required()
+    });
 
     const stateEnum = [
-        "ENABLED",
-        "DISABLED"
-    ]
+        {
+            label: "Enable",
+            value: "ENABLED"
+        },
+        {
+            label: "Disable",
+            value: "DISABLED"
+        }
+    ];
 
     return (
         <Formik
             initialValues={getInitData()}
             onSubmit={onSubmit}
+            validationSchema={validationSchema}
         >
-            <Form>
-                <Field name={"id"}>
-                    {({field}) => (
-                        <FormControl mb={4} isDisabled={true}>
-                            <FormLabel>ID</FormLabel>
-                            <Input
-                                id={"id"}
-                                {...field}
-                                placeholder="ID"
-                            />
-                        </FormControl>
-                    )}
-                </Field>
-                <Field name={"name"}
-                       validate={validateName}>
-                    {({field, form}) => (
-                        <FormControl mb={4} isInvalid={form.errors.name && form.touched.name}>
-                            <FormLabel>Name</FormLabel>
-                            <Input
-                                id={"name"}
-                                {...field}
-                                placeholder="Name"
-                            />
-                            <FormErrorMessage>{form.errors.name}</FormErrorMessage>
-                        </FormControl>
-                    )}
-                </Field>
-                <Field name={"ipAddress"}
-                       validate={validateName}>
-                    {({field, form}) => (
-                        <FormControl mb={4} isInvalid={form.errors.name && form.touched.name}>
-                            <FormLabel>IP Address</FormLabel>
-                            <Input
-                                id={"ipAddress"}
-                                {...field}
-                                placeholder="IP Address"
-                            />
-                            <FormErrorMessage>{form.errors.name}</FormErrorMessage>
-                        </FormControl>
-                    )}
-                </Field>
-                <Field name={"netmask"}
-                       validate={validateName}>
-                    {({field, form}) => (
-                        <FormControl mb={4} isInvalid={form.errors.name && form.touched.name}>
-                            <FormLabel>Netmask</FormLabel>
-                            <Input
-                                id={"netmask"}
-                                {...field}
-                                placeholder="Netmask"
-                            />
-                            <FormErrorMessage>{form.errors.name}</FormErrorMessage>
-                        </FormControl>
-                    )}
-                </Field>
-                <Field name={"gateway"}
-                       validate={validateName}>
-                    {({field, form}) => (
-                        <FormControl mb={4} isInvalid={form.errors.name && form.touched.name}>
-                            <FormLabel>Gateway</FormLabel>
-                            <Input
-                                id={"gateway"}
-                                {...field}
-                                placeholder="Gateway"
-                            />
-                            <FormErrorMessage>{form.errors.name}</FormErrorMessage>
-                        </FormControl>
-                    )}
-                </Field>
-                <Field name={"state"}
-                       validate={validateName}>
-                    {({field, form}) => (
-                        <FormControl mb={4} isInvalid={form.errors.name && form.touched.name}>
-                            <FormLabel>State</FormLabel>
-                            <Select
-                                id={"state"}
-                                name={field.name}
-                                options={stateEnum}
-                                value={stateEnum
-                                    ? stateEnum.find((c) => form.values.state = c)
-                                    : ""
-                                }
-                                onChange={(option) => {
-                                    form.values.state = option.target.value;
-                                }}
-                            >
-                                {stateEnum.map((s) => (
-                                    <option
-                                        key={s}
-                                        value={s}
-                                        id={s}>
-                                        {s}
-                                    </option>
-                                ))}
-                            </Select>
-                            <FormErrorMessage>{form.errors.name}</FormErrorMessage>
-                        </FormControl>
-                    )}
-                </Field>
-                <Field name={"dhcp"}
-                       validate={validateName}>
-                    {({field, form}) => (
-                        <FormControl mb={4} isInvalid={form.errors.name && form.touched.name}>
-                            <FormLabel>DHCP</FormLabel>
-                            <Select
-                                id={"dhcp"}
-                                name={field.name}
-                                options={stateEnum}
-                                value={stateEnum
-                                    ? stateEnum.find((c) => form.values.dhcp = c)
-                                    : ""
-                                }
-                                onChange={(option) => {
-                                    form.values.dhcp = option.target.value;
-                                }}
-                            >
-                                {stateEnum.map((s) => (
-                                    <option
-                                        key={s}
-                                        value={s}
-                                        id={s}>
-                                        {s}
-                                    </option>
-                                ))}
-                            </Select>
-                            <FormErrorMessage>{form.errors.name}</FormErrorMessage>
-                        </FormControl>
-                    )}
-                </Field>
+            {() => (
+                <Form>
+                    <InputControl mb={4} name={"id"} label={"ID"} isDisabled={true}
+                                  inputProps={{placeholder: "ID"}}/>
 
-                <Box align={"right"}>
-                    <Button margin={"10px"} onClick={onClose}>Close</Button>
-                    <Button
-                        colorScheme={"blue"}
-                        type={"submit"}
+                    <InputControl mb={4} name={"name"} label={"Name"} inputProps={{placeholder: "Name"}}/>
+
+                    <InputControl mb={4} name={"ipAddress"} label={"IP Address"}
+                                  inputProps={{placeholder: "IP Address"}}/>
+
+                    <InputControl mb={4} name={"netmask"} label={"Netmask"} inputProps={{placeholder: "Netmask"}}/>
+
+                    <InputControl mb={4} name={"gateway"} label={"Gateway"} inputProps={{placeholder: "Gateway"}}/>
+
+                    <FormLabel>State</FormLabel>
+                    <SelectControl mb={4}
+                                   name={"state"}
+                                   selectProps={{placeholder: "Select a state"}}>
+                        {stateEnum.map((s) => (
+                            <option key={s.value} value={s.value}>{s.label}</option>
+                        ))}
+                    </SelectControl>
+
+                    <FormLabel>DHCP</FormLabel>
+                    <SelectControl mb={4}
+                                   name={"dhcp"}
+                                   selectProps={{placeholder: "Select a DHCP state"}}>
+                        {stateEnum.map((s) => (
+                            <option key={s.value} value={s.value}>{s.label}</option>
+                        ))}
+                    </SelectControl>
+
+                    <FormLabel>Device</FormLabel>
+                    <SelectControl mb={4}
+                                   name={"networkDevice"}
+                                   selectProps={{placeholder: "Select a device"}}
+                                   onClick={onDeviceSelected}
                     >
-                        Submit
-                    </Button>
-                </Box>
-            </Form>
+                        {devices.map((device) => (
+                            <option key={device.label}
+                                    value={device.label}>
+                                {device.label}
+                            </option>
+                        ))}
+                    </SelectControl>
+
+                    <FormLabel>Port</FormLabel>
+                    <SelectControl mb={4}
+                                   name={"port"}
+                                   selectProps={{placeholder: "Select a port"}}>
+                        {ports.map((port) => (
+                            <option key={port.name}
+                                    value={port.name}>
+                                {port.name}
+                            </option>
+                        ))}
+                    </SelectControl>
+
+                    <Box align={"right"}>
+                        <Button margin={"10px"} onClick={onClose}>Close</Button>
+                        <Button
+                            colorScheme={"blue"}
+                            type={"submit"}
+                        >
+                            Submit
+                        </Button>
+                    </Box>
+                </Form>
+            )}
         </Formik>
     );
 }
-
-
-// export default () => {
-//     return (
-//         <Flex width="full" direction={"column"} gap={"4"}>
-//             <FormControl isDisabled={true}>
-//                 <FormLabel>ID</FormLabel>
-//                 <Input placeholder="ID"/>
-//             </FormControl>
-//
-//             <FormControl isRequired={true}>
-//                 <FormLabel>Name</FormLabel>
-//                 <Input placeholder="Name"/>
-//             </FormControl>
-//
-//             <FormControl isRequired={true}>
-//                 <FormLabel htmlFor="state">State</FormLabel>
-//                 <Select id="state">
-//                     <option>Enabled</option>
-//                     <option>Disabled</option>
-//                 </Select>
-//             </FormControl>
-//
-//             <FormControl isRequired={true}>
-//                 <FormLabel htmlFor="dhcp">DHCP</FormLabel>
-//                 <Select id="dhcp">
-//                     <option>Enabled</option>
-//                     <option>Disabled</option>
-//                 </Select>
-//             </FormControl>
-//
-//             <FormControl isRequired={true}>
-//                 <FormLabel>IP Address</FormLabel>
-//                 <Input placeholder="IP Address"/>
-//             </FormControl>
-//
-//             <FormControl>
-//                 <FormLabel>Netmask</FormLabel>
-//                 <Input placeholder="Netmask"/>
-//             </FormControl>
-//
-//             <FormControl>
-//                 <FormLabel>Gateway</FormLabel>
-//                 <Input placeholder="Gateway"/>
-//             </FormControl>
-//
-//             <FormControl isRequired={true}>
-//                 <FormLabel htmlFor="networkDevice">Network Device</FormLabel>
-//                 <Select id="networkDevice">
-//                     <option>Device 1</option>
-//                     <option>Device 2</option>
-//                 </Select>
-//             </FormControl>
-//
-//             <FormControl isRequired={true}>
-//                 <FormLabel htmlFor="port">Port</FormLabel>
-//                 <Select id="port">
-//                     <option>Port 1</option>
-//                     <option>Port 2</option>
-//                 </Select>
-//             </FormControl>
-//         </Flex>
-//     );
-// }
