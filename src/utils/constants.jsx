@@ -6,4 +6,6 @@ export const API_ENDPOINTS = {
     CREDENTIAL: `${API_ENDPOINT_BASE}/credentials`,
     DEVICE: `${API_ENDPOINT_BASE}/devices`,
     RESYNC: `${API_ENDPOINT_BASE}/resynchronization`,
+    PORT: `${API_ENDPOINT_BASE}/ports`,
+    INTERFACE: `${API_ENDPOINT_BASE}/interfaces`,
 };

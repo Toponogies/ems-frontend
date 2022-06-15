@@ -144,7 +144,7 @@ export default (props) => {
                        validate={validateName}>
                     {({field, form}) => (
                         <FormControl mb={4} isInvalid={form.errors.name && form.touched.name}>
-                            <FormLabel>Username</FormLabel>
+                            <FormLabel>IP Address</FormLabel>
                             <Input
                                 id={"ipAddress"}
                                 {...field}

@@ -36,6 +36,7 @@ export default ({columns, data, tableName}) => {
         },
         useRowSelect,
         (hooks) => {
+            if (tableName === "Port") return;
             hooks.visibleColumns.push((columns) => [
                 // Let's make a column for selection
                 {
