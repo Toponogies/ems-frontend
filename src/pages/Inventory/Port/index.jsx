@@ -1,12 +1,8 @@
-import {useEffect, useMemo} from "react";
+import {useMemo} from "react";
 import Table from "../../../components/Table/DataTable";
-import {fetchPortByDevice} from "../../../actions/port.action";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 
 export default () => {
-    const dispatch = useDispatch();
-    const {devices} = useSelector((state) => state.deviceReducer);
-
     const columns = useMemo(
         () => [
             {Header: "ID", accessor: "id"},
@@ -18,11 +14,6 @@ export default () => {
         ],
         []
     );
-
-    useEffect(() => {
-        if (devices.length > 0)
-            fetchPortByDevice(dispatch, devices[0].label).then();
-    }, []);
 
     const {ports} = useSelector((state) => state.portReducer);
 

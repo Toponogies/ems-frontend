@@ -3,6 +3,7 @@ import inventoryReducer from "./inventory.reducer";
 import credentialReducer from "./credential.reducer";
 import deviceReducer from "./device.reducer";
 import portReducer from "./port.reducer";
+import interfaceReducer from "./interface.reducer";
 
 export default configureStore({
     reducer: {
@@ -10,5 +11,6 @@ export default configureStore({
         credentialReducer: credentialReducer,
         deviceReducer: deviceReducer,
         portReducer: portReducer,
+        interfaceReducer: interfaceReducer,
     }
 });

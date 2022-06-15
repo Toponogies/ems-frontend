@@ -18,7 +18,7 @@ export default (props) => {
             case "Device":
                 return <FormDevice action={action} onClose={onClose}/>;
             case "Interface":
-                return <FormInterface/>;
+                return <FormInterface action={action} onClose={onClose}/>;
             case "Credential":
                 return <FormCredential action={action} onClose={onClose}/>;
             // TODO: Not found page

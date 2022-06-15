@@ -1,6 +1,7 @@
 import {useMemo} from "react";
 import Table from "../../../components/Table/DataTable";
 import Toolbar from "./Toolbar/Toolbar";
+import {useSelector} from "react-redux";
 
 export default () => {
     const columns = useMemo(
@@ -12,17 +13,17 @@ export default () => {
             {Header: "IP Address", accessor: "ipAddress"},
             {Header: "Netmask", accessor: "netmask"},
             {Header: "Gateway", accessor: "gateway"},
-            {Header: "Port", accessor: "port"}
+            {Header: "Port", accessor: "ports"}
         ],
         []
     );
 
-    const data = [];
+    const {interfaces} = useSelector((state) => state.interfaceReducer);
 
     return (
         <>
             <Toolbar/>
-            <Table columns={columns} data={data}/>
+            <Table columns={columns} data={interfaces} tableName={"Interface"}/>
         </>
     );
 };
