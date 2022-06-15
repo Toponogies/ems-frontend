@@ -7,6 +7,7 @@ import Port from "./Port";
 
 export default () => {
     const {page} = useSelector((state) => state.inventoryReducer);
+    const {devices} = useSelector((state) => state.deviceReducer);
 
     const Page = () => {
         switch (page) {
@@ -23,7 +24,7 @@ export default () => {
     return (
         <VStack spacing="20px">
             <InventoryDrawer page={page}/>
-            <DropDown data={data}/>
+            <DropDown devices={devices}/>
             <Page/>
         </VStack>
     );

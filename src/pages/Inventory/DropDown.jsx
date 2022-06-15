@@ -1,13 +1,20 @@
 import {Select} from "@chakra-ui/react";
+import {useDispatch} from "react-redux";
+import {fetchPortByDevice} from "../../actions/port.action";
 
 export default (props) => {
-    const {data} = props;
+    const {devices} = props;
+    const dispatch = useDispatch();
 
     return (
-        <Select>
-            {data.map((value) => {
+        <Select
+            onChange={(option) => {
+                fetchPortByDevice(dispatch, option.target.value).then();
+            }}
+        >
+            {devices.map((d) => {
                 return (
-                    <option value={value.id}>{value.label}</option>
+                    <option key={d.label} value={d.label}>{d.label}</option>
                 );
             })}
         </Select>);
