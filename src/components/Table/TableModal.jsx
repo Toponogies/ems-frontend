@@ -11,7 +11,6 @@ import {
 
 export default (props) => {
     const {isOpen, onClose, device} = props;
-
     return (
         <Modal onClose={onClose} isOpen={isOpen} isCentered size={"3xl"}>
             <ModalOverlay/>
@@ -20,8 +19,8 @@ export default (props) => {
                 <ModalCloseButton/>
                 <ModalBody>
                     <TableContainer>
-                        <Table variant='striped' colorScheme='blue'>
-                            <TableCaption>Device's {device.ipAddress}</TableCaption>
+                        <Table variant="striped" colorScheme="blue">
+                            <TableCaption>Device {device.ipAddress} information</TableCaption>
                             <Thead>
                                 <Tr>
                                     <Th>Key</Th>

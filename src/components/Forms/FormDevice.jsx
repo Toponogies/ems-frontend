@@ -76,6 +76,7 @@ export default (props) => {
         // return error;
     };
 
+
     return (
         <Formik
             initialValues={getInitData()}
@@ -115,14 +116,21 @@ export default (props) => {
                             <FormLabel>Credential</FormLabel>
                             <Select
                                 id={"credential"}
-                                name={"credential"}
-                                onChange={(option) => form.setFieldValue(field.name = option.value)}
+                                name={field.name}
+                                options={credentials}
+                                value={credentials
+                                    ? credentials.find((c) => form.values.credential = c.name)
+                                    : ""
+                                }
+                                onChange={(option) => {
+                                    form.values.credential = option.target.value;
+                                }}
                             >
                                 {credentials.map((credential) => (
                                     <option
                                         key={credential.name}
                                         value={credential.name}
-                                        id="credential">
+                                        id={credential.name}>
                                         {credential.name}
                                     </option>
                                 ))}

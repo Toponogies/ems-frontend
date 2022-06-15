@@ -13,6 +13,7 @@ const fetchAll = async (dispatch) => {
 const add = async (dispatch, payload) => {
     try {
         const response = await createDevice(payload);
+        response.data.credential = payload.credential;
         dispatch(addDevice(response.data));
     } catch (error) {
         return error.response;
@@ -22,7 +23,7 @@ const add = async (dispatch, payload) => {
 const update = async (dispatch, id, payload) => {
     try {
         const response = await updateDevice(id, payload);
-        response.data.devices = payload.devices;
+        response.data.credential = payload.credential;
         dispatch(editDevice(response.data));
     } catch (error) {
         return error.response;
