@@ -1,11 +1,4 @@
-import {
-    Modal,
-    ModalBody,
-    ModalCloseButton,
-    ModalContent,
-    ModalHeader,
-    ModalOverlay
-} from "@chakra-ui/react";
+import {Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay} from "@chakra-ui/react";
 import FormCredential from "./FormCredential";
 import FormInterface from "./FormInterface";
 import FormDevice from "./FormDevice";

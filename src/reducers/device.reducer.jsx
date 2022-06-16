@@ -19,8 +19,8 @@ export const deviceSlide = createSlice({
         removeDevice: (state, action) => {
             state.devices = state.devices.filter(item => item.id !== action.payload);
         },
-        changeActiveDevices: (state, action) =>{
-            state.activeDevices = action.payload
+        changeActiveDevices: (state, action) => {
+            state.activeDevices = action.payload;
         }
     }
 });

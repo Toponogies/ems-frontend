@@ -1,9 +1,4 @@
-import {
-    Box,
-    Button,
-    FormLabel,
-    useToast
-} from "@chakra-ui/react";
+import {Box, Button, FormLabel, useToast} from "@chakra-ui/react";
 import {useDispatch, useSelector} from "react-redux";
 import {add, update} from "../../actions/device.action";
 import Toast from "../Toast/Toast";
@@ -94,7 +89,8 @@ export default (props) => {
 
                     <InputControl mb={4} name={"label"} label={"Label"} inputProps={{placeholder: "Label"}}/>
 
-                    <InputControl mb={4} name={"ipAddress"} label={"IP Address"} inputProps={{placeholder: "IP Address"}}/>
+                    <InputControl mb={4} name={"ipAddress"} label={"IP Address"}
+                                  inputProps={{placeholder: "IP Address"}}/>
 
                     <InputControl mb={4} name={"sshPort"} label={"SSH Port"} inputProps={{placeholder: "SSH Port"}}/>
 

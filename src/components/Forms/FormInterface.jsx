@@ -6,6 +6,7 @@ import {Form, Formik} from "formik";
 import * as yup from "yup";
 import {InputControl, SelectControl} from "formik-chakra-ui";
 import {fetchPorts} from "../../actions/port.action";
+import {loadPorts} from "../../reducers/port.reducer";
 
 export default (props) => {
     const toast = useToast();
@@ -56,13 +57,12 @@ export default (props) => {
     };
 
     const {devices} = useSelector((state) => state.deviceReducer);
-    let ports = [];
+    let {ports} = useSelector((state) => state.portReducer);
 
     const onDeviceSelected = async (option) => {
         ports = await fetchPorts();
-        console.log(option.target.value)
         ports = ports.filter(p => p.networkDevice === option.target.value);
-        console.log(ports)
+        dispatch(loadPorts(ports));
     };
 
     const getInitData = () => {
@@ -163,7 +163,6 @@ export default (props) => {
                             </option>
                         ))}
                     </SelectControl>
-
                     <Box align={"right"}>
                         <Button margin={"10px"} onClick={onClose}>Close</Button>
                         <Button

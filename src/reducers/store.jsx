@@ -11,6 +11,6 @@ export default configureStore({
         credentialReducer: credentialReducer,
         deviceReducer: deviceReducer,
         portReducer: portReducer,
-        interfaceReducer: interfaceReducer,
+        interfaceReducer: interfaceReducer
     }
 });

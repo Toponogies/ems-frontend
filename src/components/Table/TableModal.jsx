@@ -6,7 +6,15 @@ import {
     ModalContent,
     ModalFooter,
     ModalHeader,
-    ModalOverlay, Table, TableCaption, TableContainer, Tbody, Td, Th, Thead, Tr
+    ModalOverlay,
+    Table,
+    TableCaption,
+    TableContainer,
+    Tbody,
+    Td,
+    Th,
+    Thead,
+    Tr
 } from "@chakra-ui/react";
 
 export default (props) => {

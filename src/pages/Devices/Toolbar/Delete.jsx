@@ -23,7 +23,7 @@ export default () => {
         } else {
             onOpen();
         }
-    }
+    };
 
     const onSubmit = async () => {
         let response = await remove(dispatch, activeDevices[0].id);

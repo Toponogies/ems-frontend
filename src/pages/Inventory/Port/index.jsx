@@ -1,4 +1,4 @@
-import {useMemo, useEffect} from "react";
+import {useEffect, useMemo} from "react";
 import Table from "../../../components/Table/DataTable";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchPortByDevice} from "../../../actions/port.action";

@@ -86,7 +86,8 @@ export default (props) => {
 
                 <InputControl mb={4} name={"username"} label={"Username"} inputProps={{placeholder: "Username"}}/>
 
-                <InputControl mb={4} name={"password"} label={"Password"} inputProps={{type: "password", placeholder: "Password"}}/>
+                <InputControl mb={4} name={"password"} label={"Password"}
+                              inputProps={{type: "password", placeholder: "Password"}}/>
 
                 <Box align={"right"}>
                     <Button margin={"10px"} onClick={onClose}>Close</Button>

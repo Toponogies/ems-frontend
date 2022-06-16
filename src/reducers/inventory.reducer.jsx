@@ -3,19 +3,15 @@ import {createSlice} from "@reduxjs/toolkit";
 export const inventorySlide = createSlice({
     name: "inventorySlide",
     initialState: {
-        page: "Port",
-        ports: []
+        page: "Port"
     },
     reducers: {
         setTo: (state, action) => {
             state.page = action.payload;
-        },
-        setPort: (state, action) => {
-            state.ports = action.payload;
-        },
+        }
     }
 });
 
-export const {setTo, setPort} = inventorySlide.actions;
+export const {setTo} = inventorySlide.actions;
 
 export default inventorySlide.reducer;

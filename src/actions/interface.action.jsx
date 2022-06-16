@@ -1,9 +1,4 @@
-import {
-    createInterface,
-    deleteInterface,
-    getInterfacesByDevice,
-    updateInterface
-} from "./apis/interface.api";
+import {createInterface, deleteInterface, getInterfacesByDevice, updateInterface} from "./apis/interface.api";
 import {addInterface, editInterface, loadInterfaces, removeInterface} from "../reducers/interface.reducer";
 
 const fetchInterfaceByDevice = async (dispatch, deviceLabel) => {
