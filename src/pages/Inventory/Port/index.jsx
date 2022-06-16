@@ -1,11 +1,11 @@
 import {useEffect, useMemo} from "react";
 import Table from "../../../components/Table/DataTable";
-import {fetchPortByDevice} from "../../../actions/port.action";
 import {useDispatch, useSelector} from "react-redux";
+import {fetchPortByDevice} from "../../../actions/port.action";
 
 export default () => {
-    const dispatch = useDispatch();
     const {devices} = useSelector((state) => state.deviceReducer);
+    const dispatch = useDispatch();
 
     const columns = useMemo(
         () => [

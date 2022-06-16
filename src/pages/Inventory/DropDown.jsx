@@ -1,6 +1,7 @@
 import {Select} from "@chakra-ui/react";
 import {useDispatch} from "react-redux";
 import {fetchPortByDevice} from "../../actions/port.action";
+import {fetchInterfaceByDevice} from "../../actions/interface.action";
 
 export default (props) => {
     const {devices} = props;
@@ -10,6 +11,7 @@ export default (props) => {
         <Select
             onChange={(option) => {
                 fetchPortByDevice(dispatch, option.target.value).then();
+                fetchInterfaceByDevice(dispatch, option.target.value).then();
             }}
         >
             {devices.map((d) => {

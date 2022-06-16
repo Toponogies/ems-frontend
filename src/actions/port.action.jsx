@@ -1,4 +1,4 @@
-import {getPortsByDevice} from "./apis/port.api";
+import {fetchAll, getPortsByDevice} from "./apis/port.api";
 import {loadPorts} from "../reducers/port.reducer";
 
 const fetchPortByDevice = async (dispatch, deviceLabel) => {
@@ -11,6 +11,16 @@ const fetchPortByDevice = async (dispatch, deviceLabel) => {
     }
 };
 
+const fetchPorts = async () => {
+    try {
+        let response = await fetchAll();
+        return response.data;
+    } catch (error) {
+        return error;
+    }
+};
+
 export {
-    fetchPortByDevice
+    fetchPortByDevice,
+    fetchPorts
 };

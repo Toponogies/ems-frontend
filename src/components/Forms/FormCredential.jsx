@@ -1,8 +1,10 @@
-import {Box, Button, FormControl, FormErrorMessage, FormLabel, Input, useToast} from "@chakra-ui/react";
+import {Box, Button, useToast} from "@chakra-ui/react";
 import Toast from "../Toast/Toast";
-import {Field, Form, Formik} from "formik";
+import {Form, Formik} from "formik";
 import {useDispatch, useSelector} from "react-redux";
 import {add, update} from "../../actions/credential.action";
+import * as yup from "yup";
+import {InputControl} from "formik-chakra-ui";
 
 export default (props) => {
     const toast = useToast();
@@ -55,9 +57,9 @@ export default (props) => {
     const getInitData = () => {
         if (action === "Add") {
             return {
-                name: "Name",
-                username: "Username",
-                password: "Password"
+                name: "",
+                username: "",
+                password: ""
             };
         } else if (action === "Update") {
             const {activeCredentials} = useSelector((state) => state.credentialReducer);
@@ -65,77 +67,28 @@ export default (props) => {
         }
     };
 
-    const validateName = (value) => {
-        // let error;
-        // if (!value) {
-        //     error = "Name is required";
-        // } else if (value.toLowerCase() !== "naruto") {
-        //     error = "Jeez! You're not a fan 😱";
-        // }
-        // return error;
-    };
+    const validationSchema = yup.object({
+        name: yup.string().required(),
+        username: yup.string().required(),
+        password: yup.string().required()
+    });
 
     return (
         <Formik
             initialValues={getInitData()}
             onSubmit={onSubmit}
+            validationSchema={validationSchema}
         >
             <Form>
-                <Field name={"id"}>
-                    {({field}) => (
-                        <FormControl mb={4} isDisabled={true}>
-                            <FormLabel>ID</FormLabel>
-                            <Input
-                                id={"id"}
-                                {...field}
-                                placeholder="ID"
-                            />
-                        </FormControl>
-                    )}
-                </Field>
-                <Field name={"name"}
-                       validate={validateName}>
-                    {({field, form}) => (
-                        <FormControl mb={4} isInvalid={form.errors.name && form.touched.name}>
-                            <FormLabel>Name</FormLabel>
-                            <Input
-                                id={"name"}
-                                {...field}
-                                placeholder="Name"
-                            />
-                            <FormErrorMessage>{form.errors.name}</FormErrorMessage>
-                        </FormControl>
-                    )}
-                </Field>
-                <Field name={"username"}
-                       validate={validateName}>
-                    {({field, form}) => (
-                        <FormControl mb={4} isInvalid={form.errors.name && form.touched.name}>
-                            <FormLabel>Username</FormLabel>
-                            <Input
-                                id={"username"}
-                                {...field}
-                                placeholder="Username"
-                            />
-                            <FormErrorMessage>{form.errors.name}</FormErrorMessage>
-                        </FormControl>
-                    )}
-                </Field>
-                <Field name={"password"}
-                       validate={validateName}>
-                    {({field, form}) => (
-                        <FormControl mb={4} isInvalid={form.errors.name && form.touched.name}>
-                            <FormLabel>Password</FormLabel>
-                            <Input
-                                id={"password"}
-                                {...field}
-                                type="password"
-                                placeholder="••••••••"
-                            />
-                            <FormErrorMessage>{form.errors.name}</FormErrorMessage>
-                        </FormControl>
-                    )}
-                </Field>
+                <InputControl mb={4} name={"id"} label={"ID"} isDisabled={true} inputProps={{placeholder: "ID"}}/>
+
+                <InputControl mb={4} name={"name"} label={"Name"} inputProps={{placeholder: "Name"}}/>
+
+                <InputControl mb={4} name={"username"} label={"Username"} inputProps={{placeholder: "Username"}}/>
+
+                <InputControl mb={4} name={"password"} label={"Password"}
+                              inputProps={{type: "password", placeholder: "Password"}}/>
+
                 <Box align={"right"}>
                     <Button margin={"10px"} onClick={onClose}>Close</Button>
                     <Button

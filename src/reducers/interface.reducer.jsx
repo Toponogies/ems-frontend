@@ -19,12 +19,18 @@ export const interfaceSlide = createSlice({
         removeInterface: (state, action) => {
             state.interfaces = state.interfaces.filter(item => item.id !== action.payload);
         },
-        changeActiveInterfaces: (state, action) =>{
-            state.activeInterfaces = action.payload
+        changeActiveInterfaces: (state, action) => {
+            state.activeInterfaces = action.payload;
         }
     }
 });
 
-export const {loadInterfaces, addInterface, editInterface, removeInterface, changeActiveInterfaces} = interfaceSlide.actions;
+export const {
+    loadInterfaces,
+    addInterface,
+    editInterface,
+    removeInterface,
+    changeActiveInterfaces
+} = interfaceSlide.actions;
 
 export default interfaceSlide.reducer;

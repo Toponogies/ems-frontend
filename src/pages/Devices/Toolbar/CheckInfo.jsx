@@ -28,7 +28,7 @@ export default () => {
             <Tooltip label="Check Info">
                 <IconButton icon={<FaInfoCircle/>} aria-label={"Check information"} onClick={onOpenForm}/>
             </Tooltip>
-            <TableModal isOpen={isOpen} onClose={onClose} device={activeDevices[0] ? activeDevices[0]: {}}/>
+            <TableModal isOpen={isOpen} onClose={onClose} device={activeDevices[0] ? activeDevices[0] : {}}/>
         </>
     );
 };

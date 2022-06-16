@@ -1,11 +1,4 @@
-import {
-    Modal,
-    ModalBody,
-    ModalCloseButton,
-    ModalContent,
-    ModalHeader,
-    ModalOverlay
-} from "@chakra-ui/react";
+import {Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay} from "@chakra-ui/react";
 import FormCredential from "./FormCredential";
 import FormInterface from "./FormInterface";
 import FormDevice from "./FormDevice";
@@ -18,7 +11,7 @@ export default (props) => {
             case "Device":
                 return <FormDevice action={action} onClose={onClose}/>;
             case "Interface":
-                return <FormInterface/>;
+                return <FormInterface action={action} onClose={onClose}/>;
             case "Credential":
                 return <FormCredential action={action} onClose={onClose}/>;
             // TODO: Not found page

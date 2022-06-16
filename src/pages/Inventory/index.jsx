@@ -19,8 +19,6 @@ export default () => {
         }
     };
 
-    const data = [];
-
     return (
         <VStack spacing="20px">
             <InventoryDrawer page={page}/>

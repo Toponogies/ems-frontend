@@ -4,6 +4,7 @@ import {useRowSelect, useTable} from "react-table";
 import {useDispatch, useSelector} from "react-redux";
 import {changeActiveCredentials} from "../../reducers/credential.reducer";
 import {changeActiveDevices} from "../../reducers/device.reducer";
+import {changeActiveInterfaces} from "../../reducers/interface.reducer";
 
 const IndeterminateCheckbox = forwardRef(({indeterminate, ...rest}, ref) => {
     const defaultRef = useRef();
@@ -76,6 +77,12 @@ export default ({columns, data, tableName}) => {
             const {activeDevices} = useSelector((state) => state.deviceReducer);
             if (activeDevices.length !== selectedFlatRows.length) {
                 dispatch(changeActiveDevices(selectedFlatRows.map((row) => row.original)));
+            }
+            break;
+        case "Interface":
+            const {activeInterfaces} = useSelector((state) => state.interfaceReducer);
+            if (activeInterfaces.length !== selectedFlatRows.length) {
+                dispatch(changeActiveInterfaces(selectedFlatRows.map((row) => row.original)));
             }
             break;
     }
