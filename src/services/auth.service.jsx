@@ -24,7 +24,9 @@ const doLogin = keycloak.login;
 
 const doLogout = keycloak.logout;
 
-const getToken = () => keycloak.token;
+const getToken = () => {
+    return keycloak.token;
+};
 
 const updateToken = (successCallback) => {
     keycloak.updateToken(5)

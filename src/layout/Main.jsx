@@ -3,7 +3,7 @@ import Devices from "@/pages/Devices";
 import Inventory from "@/pages/Inventory";
 import {
     Avatar,
-    Box,
+    Box, Button,
     Heading,
     HStack,
     Spacer,
@@ -15,8 +15,13 @@ import {
     Text,
     VStack
 } from "@chakra-ui/react";
+import {FaSignOutAlt} from "react-icons/fa";
+import AuthService from "../services/auth.service";
 
 export default () => {
+    const onLogout = () => {
+        AuthService.doLogout();
+    };
     return (
         <Box px={8} py={4}>
             <Tabs variant="soft-rounded" w="full">
@@ -33,12 +38,14 @@ export default () => {
 
                         <Spacer/>
 
-                        <HStack spacing="16px">
-                            <Text>Dan Abrahmov</Text>
+                        <HStack spacing="10px">
+                            <Button size={"sm"} colorScheme="gray" leftIcon={<FaSignOutAlt/>} onClick={onLogout}>
+                                Logout
+                            </Button>
+                            <Text fontSize="15px">{AuthService.getUsername()}</Text>
                             <Avatar
-                                name="Dan Abrahmov"
+                                name={AuthService.getUsername()}
                                 size="sm"
-                                src="https://bit.ly/dan-abramov"
                             />
                         </HStack>
                     </HStack>
