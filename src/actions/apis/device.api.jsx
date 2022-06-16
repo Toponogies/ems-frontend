@@ -36,3 +36,11 @@ export async function executeCommand(id, payload) {
         return res;
     });
 }
+
+export async function downloadConfiguration(id) {
+    return await axios.get(`${API_ENDPOINTS.DEVICE}/${id}/configuration`, {
+        responseType: "blob"
+    }).then((res) => {
+        return res;
+    });
+}
