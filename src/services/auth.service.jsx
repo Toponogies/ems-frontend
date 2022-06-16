@@ -1,9 +1,10 @@
 import Keycloak from "keycloak-js";
+import {AUTH_CLIENT_ID, AUTH_REALM, AUTH_URL} from "../utils/constants";
 
 const keycloak = new Keycloak({
-    url: "http://localhost:28080/auth",
-    realm: "ems",
-    clientId: "ems-frontend"
+    url: AUTH_URL,
+    realm: AUTH_REALM,
+    clientId: AUTH_CLIENT_ID
 });
 
 const init = (onAuthenticatedCallback) => {
