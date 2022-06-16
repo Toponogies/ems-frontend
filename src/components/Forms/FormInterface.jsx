@@ -106,7 +106,7 @@ export default (props) => {
             onSubmit={onSubmit}
             validationSchema={validationSchema}
         >
-            {() => (
+            {({isSubmitting}) => (
                 <Form>
                     <InputControl mb={4} name={"id"} label={"ID"} isDisabled={true}
                                   inputProps={{placeholder: "ID"}}/>
@@ -168,6 +168,7 @@ export default (props) => {
                         <Button
                             colorScheme={"blue"}
                             type={"submit"}
+                            isLoading={isSubmitting}
                         >
                             Submit
                         </Button>

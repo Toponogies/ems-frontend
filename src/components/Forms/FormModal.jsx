@@ -2,6 +2,7 @@ import {Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOver
 import FormCredential from "./FormCredential";
 import FormInterface from "./FormInterface";
 import FormDevice from "./FormDevice";
+import FormCommand from "./FormCommand";
 
 export default (props) => {
     const {isOpen, onClose, action, entity} = props;
@@ -14,6 +15,8 @@ export default (props) => {
                 return <FormInterface action={action} onClose={onClose}/>;
             case "Credential":
                 return <FormCredential action={action} onClose={onClose}/>;
+            case "Command":
+                return <FormCommand/>
             // TODO: Not found page
         }
     };
