@@ -4,8 +4,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./layout/Main";
 import store from "./reducers/store";
+import AuthService from "./services/auth.service";
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+const createApp = () => ReactDOM.createRoot(document.getElementById("root")).render(
     // <React.StrictMode>
     //     <Provider store={store}>
     //         <ChakraProvider>
@@ -21,3 +22,4 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     </Provider>
 );
 
+AuthService.init(createApp);

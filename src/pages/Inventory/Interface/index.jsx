@@ -2,7 +2,7 @@ import {useEffect, useMemo} from "react";
 import Table from "../../../components/Table/DataTable";
 import Toolbar from "./Toolbar/Toolbar";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchInterfaceByDevice} from "../../../actions/interface.action";
+import InterfaceService from "../../../services/interface.service";
 
 export default () => {
     const {devices} = useSelector((state) => state.deviceReducer);
@@ -24,7 +24,7 @@ export default () => {
 
     useEffect(() => {
         if (devices.length > 0)
-            fetchInterfaceByDevice(dispatch, devices[0].label).then();
+            InterfaceService.fetchInterfaceByDevice(dispatch, devices[0].label).then();
     }, []);
 
     const {interfaces} = useSelector((state) => state.interfaceReducer);

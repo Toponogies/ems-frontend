@@ -1,4 +1,4 @@
-import {createCredential, deleteCredential, getCredentials, updateCredential} from "./apis/credential.api";
+import {createCredential, deleteCredential, getCredentials, updateCredential} from "../apis/credential.api";
 import {addCredential, editCredential, loadCredentials, removeCredential} from "../reducers/credential.reducer";
 
 const fetchAll = async (dispatch) => {
@@ -38,9 +38,11 @@ const remove = async (dispatch, id) => {
     }
 };
 
-export {
+const CredentialService = {
     fetchAll,
     add,
     update,
     remove
-};
+}
+
+export default CredentialService;

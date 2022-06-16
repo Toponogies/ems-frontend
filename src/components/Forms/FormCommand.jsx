@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import * as yup from "yup";
 import {InputControl} from "formik-chakra-ui";
 import Toast from "../Toast/Toast";
-import {execute} from "../../actions/device.action";
+import DeviceService from "../../services/device.service";
 import {useState} from "react";
 
 export default () => {
@@ -16,7 +16,7 @@ export default () => {
     const {activeDevices} = useSelector((state) => state.deviceReducer);
 
     const onSubmit = async (values) => {
-        const response = await execute(dispatch, activeDevices[0].id, values);
+        const response = await DeviceService.execute(dispatch, activeDevices[0].id, values);
 
         if (typeof response.data === "string" || response.data instanceof String) {
             setResult(response.data);

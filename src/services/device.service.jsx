@@ -6,7 +6,7 @@ import {
     getDevices,
     resyncDevices,
     updateDevice
-} from "./apis/device.api";
+} from "../apis/device.api";
 import {addDevice, editDevice, loadDevices, removeDevice} from "../reducers/device.reducer";
 import fileDownload from "js-file-download";
 
@@ -76,8 +76,7 @@ const download = async (id) => {
     }
 };
 
-
-export {
+const DeviceService = {
     fetchAll,
     add,
     update,
@@ -86,3 +85,5 @@ export {
     execute,
     download
 };
+
+export default DeviceService;

@@ -1,4 +1,4 @@
-import {API_ENDPOINTS} from "../../utils/constants";
+import {API_ENDPOINTS} from "../utils/constants";
 import axios from "axios";
 
 export async function getPortsByDevice(deviceLabel) {
