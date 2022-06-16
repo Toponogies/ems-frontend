@@ -79,26 +79,30 @@ export default (props) => {
             onSubmit={onSubmit}
             validationSchema={validationSchema}
         >
-            <Form>
-                <InputControl mb={4} name={"id"} label={"ID"} isDisabled={true} inputProps={{placeholder: "ID"}}/>
+            {({isSubmitting}) => (
 
-                <InputControl mb={4} name={"name"} label={"Name"} inputProps={{placeholder: "Name"}}/>
+                <Form>
+                    <InputControl mb={4} name={"id"} label={"ID"} isDisabled={true} inputProps={{placeholder: "ID"}}/>
 
-                <InputControl mb={4} name={"username"} label={"Username"} inputProps={{placeholder: "Username"}}/>
+                    <InputControl mb={4} name={"name"} label={"Name"} inputProps={{placeholder: "Name"}}/>
 
-                <InputControl mb={4} name={"password"} label={"Password"}
-                              inputProps={{type: "password", placeholder: "Password"}}/>
+                    <InputControl mb={4} name={"username"} label={"Username"} inputProps={{placeholder: "Username"}}/>
 
-                <Box align={"right"}>
-                    <Button margin={"10px"} onClick={onClose}>Close</Button>
-                    <Button
-                        colorScheme={"blue"}
-                        type={"submit"}
-                    >
-                        Submit
-                    </Button>
-                </Box>
-            </Form>
+                    <InputControl mb={4} name={"password"} label={"Password"}
+                                  inputProps={{type: "password", placeholder: "Password"}}/>
+
+                    <Box align={"right"}>
+                        <Button margin={"10px"} onClick={onClose}>Close</Button>
+                        <Button
+                            colorScheme={"blue"}
+                            type={"submit"}
+                            isLoading={isSubmitting}
+                        >
+                            Submit
+                        </Button>
+                    </Box>
+                </Form>
+            )}
         </Formik>
     );
 }

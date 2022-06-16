@@ -30,3 +30,9 @@ export async function resyncDevices(payload) {
         return res;
     });
 }
+
+export async function executeCommand(id, payload) {
+    return await axios.post(`${API_ENDPOINTS.DEVICE}/${id}/generic-command`, payload).then((res) => {
+        return res;
+    });
+}
