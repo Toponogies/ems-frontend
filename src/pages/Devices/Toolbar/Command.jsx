@@ -3,6 +3,7 @@ import {FaTerminal} from "react-icons/fa";
 import FormModal from "../../../components/Forms/FormModal";
 import Toast from "../../../components/Toast/Toast";
 import {useSelector} from "react-redux";
+import RenderOnRole from "../../../components/RenderOnRole";
 
 export default () => {
     const {isOpen, onOpen, onClose} = useDisclosure();
@@ -25,10 +26,12 @@ export default () => {
 
     return (
         <>
-            <Tooltip label="Command">
-                <IconButton icon={<FaTerminal/>} aria-label={"Update"} onClick={onOpenForm}/>
-            </Tooltip>
-            <FormModal isOpen={isOpen} onClose={onClose} action={"Execute"} entity={"Command"}/>
+            <RenderOnRole roles={["admin"]}>
+                <Tooltip label="Command">
+                    <IconButton icon={<FaTerminal/>} aria-label={"Update"} onClick={onOpenForm}/>
+                </Tooltip>
+                <FormModal isOpen={isOpen} onClose={onClose} action={"Execute"} entity={"Command"}/>
+            </RenderOnRole>
         </>
     );
 };
