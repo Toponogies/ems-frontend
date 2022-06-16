@@ -16,7 +16,7 @@ export default (props) => {
             case "Credential":
                 return <FormCredential action={action} onClose={onClose}/>;
             case "Command":
-                return <FormCommand/>
+                return <FormCommand/>;
             // TODO: Not found page
         }
     };

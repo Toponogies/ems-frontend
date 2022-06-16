@@ -1,5 +1,14 @@
-import {createDevice, deleteDevice, executeCommand, getDevices, resyncDevices, updateDevice} from "./apis/device.api";
+import {
+    createDevice,
+    deleteDevice,
+    downloadConfiguration,
+    executeCommand,
+    getDevices,
+    resyncDevices,
+    updateDevice
+} from "./apis/device.api";
 import {addDevice, editDevice, loadDevices, removeDevice} from "../reducers/device.reducer";
+import fileDownload from "js-file-download";
 
 const fetchAll = async (dispatch) => {
     try {
@@ -58,6 +67,15 @@ const execute = async (dispatch, id, payload) => {
     }
 };
 
+const download = async (id) => {
+    try {
+        let response = await downloadConfiguration(id);
+        fileDownload(response.data, "configuration_" + id + ".txt");
+    } catch (error) {
+        return error.response;
+    }
+};
+
 
 export {
     fetchAll,
@@ -65,5 +83,6 @@ export {
     update,
     remove,
     resync,
-    execute
+    execute,
+    download
 };

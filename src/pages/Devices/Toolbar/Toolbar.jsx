@@ -5,6 +5,7 @@ import Update from "./Update";
 import Resync from "./Resync";
 import CheckInfo from "./CheckInfo";
 import Command from "./Command";
+import Download from "./Download";
 
 export default () => {
     return (
@@ -12,6 +13,7 @@ export default () => {
             <Spacer/>
             <Resync/>
             <Command/>
+            <Download/>
             <Update/>
             <Delete/>
             <CheckInfo/>
