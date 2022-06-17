@@ -3,7 +3,7 @@ import {useEffect, useMemo} from "react";
 import Table from "../../components/Table/DataTable";
 import Toolbar from "./Toolbar/Toolbar";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchAll} from "../../actions/device.action";
+import DeviceService from "../../services/device.service";
 
 export default () => {
     const dispatch = useDispatch();
@@ -21,7 +21,7 @@ export default () => {
     );
 
     useEffect(() => {
-        fetchAll(dispatch).then();
+        DeviceService.fetchAll(dispatch).then();
     }, []);
 
     const {devices} = useSelector((state) => state.deviceReducer);

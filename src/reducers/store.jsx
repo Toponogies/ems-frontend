@@ -4,6 +4,7 @@ import credentialReducer from "./credential.reducer";
 import deviceReducer from "./device.reducer";
 import portReducer from "./port.reducer";
 import interfaceReducer from "./interface.reducer";
+import loginReducer from "./login.reducer";
 
 export default configureStore({
     reducer: {
@@ -11,6 +12,7 @@ export default configureStore({
         credentialReducer: credentialReducer,
         deviceReducer: deviceReducer,
         portReducer: portReducer,
-        interfaceReducer: interfaceReducer
+        interfaceReducer: interfaceReducer,
+        loginReducer: loginReducer
     }
 });

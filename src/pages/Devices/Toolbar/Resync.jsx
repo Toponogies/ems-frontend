@@ -2,7 +2,7 @@ import {IconButton, Tooltip, useToast} from "@chakra-ui/react";
 import {FaUndo} from "react-icons/fa";
 import Toast from "../../../components/Toast/Toast";
 import {useDispatch, useSelector} from "react-redux";
-import {resync} from "../../../actions/device.action";
+import DeviceService from "../../../services/device.service";
 
 export default () => {
     const toast = useToast();
@@ -21,7 +21,7 @@ export default () => {
             Toast(toaster);
         } else {
             let ids = activeDevices.map(device => device.id);
-            let response = await resync(dispatch, ids);
+            let response = await DeviceService.resync(dispatch, ids);
             toaster = {
                 toast: toast,
                 title: "Submitted devices to resync",

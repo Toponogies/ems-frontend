@@ -1,11 +1,11 @@
 import {Box, Button, FormLabel, useToast} from "@chakra-ui/react";
 import {useDispatch, useSelector} from "react-redux";
-import {add, update} from "../../actions/interface.action";
+import InterfaceService from "../../services/interface.service";
 import Toast from "../Toast/Toast";
 import {Form, Formik} from "formik";
 import * as yup from "yup";
 import {InputControl, SelectControl} from "formik-chakra-ui";
-import {fetchPorts} from "../../actions/port.action";
+import PortService from "../../services/port.service";
 import {loadPorts} from "../../reducers/port.reducer";
 
 export default (props) => {
@@ -17,7 +17,7 @@ export default (props) => {
         let toaster;
 
         if (action === "Add") {
-            let response = await add(dispatch, values);
+            let response = await InterfaceService.add(dispatch, values);
             toaster = {
                 toast: toast,
                 title: "Added an interface",
@@ -34,7 +34,7 @@ export default (props) => {
                 };
             }
         } else if (action === "Update") {
-            let response = await update(dispatch, values.id, values);
+            let response = await InterfaceService.update(dispatch, values.id, values);
 
             toaster = {
                 toast: toast,
@@ -60,7 +60,7 @@ export default (props) => {
     let {ports} = useSelector((state) => state.portReducer);
 
     const onDeviceSelected = async (option) => {
-        ports = await fetchPorts();
+        ports = await PortService.fetchPorts();
         ports = ports.filter(p => p.networkDevice === option.target.value);
         dispatch(loadPorts(ports));
     };

@@ -1,6 +1,6 @@
 import {Box, Button, FormLabel, useToast} from "@chakra-ui/react";
 import {useDispatch, useSelector} from "react-redux";
-import {add, update} from "../../actions/device.action";
+import DeviceService from "../../services/device.service";
 import Toast from "../Toast/Toast";
 import {Form, Formik} from "formik";
 import {InputControl, SelectControl} from "formik-chakra-ui";
@@ -16,7 +16,7 @@ export default (props) => {
         let toaster;
 
         if (action === "Add") {
-            let response = await add(dispatch, values);
+            let response = await DeviceService.add(dispatch, values);
             toaster = {
                 toast: toast,
                 title: "Added a device",
@@ -33,7 +33,7 @@ export default (props) => {
                 };
             }
         } else if (action === "Update") {
-            let response = await update(dispatch, values.id, values);
+            let response = await DeviceService.update(dispatch, values.id, values);
 
             toaster = {
                 toast: toast,

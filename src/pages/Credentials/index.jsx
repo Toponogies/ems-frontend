@@ -3,7 +3,7 @@ import {useEffect, useMemo} from "react";
 import Table from "../../components/Table/DataTable";
 import Toolbar from "./Toolbar/Toolbar";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchAll} from "../../actions/credential.action";
+import CredentialService from "../../services/credential.service";
 
 export default () => {
     const dispatch = useDispatch();
@@ -19,7 +19,7 @@ export default () => {
     );
 
     useEffect(() => {
-        fetchAll(dispatch).then();
+        CredentialService.fetchAll(dispatch).then();
     }, []);
 
     const {credentials} = useSelector((state) => state.credentialReducer);

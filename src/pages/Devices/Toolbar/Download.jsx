@@ -2,7 +2,7 @@ import {IconButton, Tooltip, useToast} from "@chakra-ui/react";
 import {FaDownload} from "react-icons/fa";
 import Toast from "../../../components/Toast/Toast";
 import {useSelector} from "react-redux";
-import {download} from "../../../actions/device.action";
+import DeviceService from "../../../services/device.service";
 
 export default () => {
     const toast = useToast();
@@ -23,7 +23,7 @@ export default () => {
                 status: "error"
             };
         } else {
-            let response = await download(activeDevices[0].id);
+            let response = await DeviceService.download(activeDevices[0].id);
             if (response) {
                 toaster = {
                     toast: toast,

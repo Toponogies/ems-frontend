@@ -1,7 +1,7 @@
 import {useEffect, useMemo} from "react";
 import Table from "../../../components/Table/DataTable";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchPortByDevice} from "../../../actions/port.action";
+import PortService from "../../../services/port.service";
 
 export default () => {
     const {devices} = useSelector((state) => state.deviceReducer);
@@ -21,7 +21,7 @@ export default () => {
 
     useEffect(() => {
         if (devices.length > 0)
-            fetchPortByDevice(dispatch, devices[0].label).then();
+            PortService.fetchPortByDevice(dispatch, devices[0].label).then();
     }, []);
 
     const {ports} = useSelector((state) => state.portReducer);
