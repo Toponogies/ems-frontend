@@ -1,11 +1,6 @@
 import Keycloak from "keycloak-js";
-import {AUTH_CLIENT_ID, AUTH_REALM, AUTH_URL} from "../utils/constants";
 
-const keycloak = new Keycloak({
-    url: AUTH_URL,
-    realm: AUTH_REALM,
-    clientId: AUTH_CLIENT_ID
-});
+const keycloak = new Keycloak("/keycloak.json");
 
 const init = (onAuthenticatedCallback) => {
     keycloak.init({
@@ -37,7 +32,7 @@ const updateToken = (successCallback) => {
 
 const getUsername = () => keycloak.tokenParsed?.preferred_username;
 
-const hasRole = (roles) => roles.some((role) => keycloak.hasRealmRole(role));
+const hasRole = (roles) => roles.some((role) => keycloak.hasResourceRole(role));
 
 const AuthService = {
     init,
