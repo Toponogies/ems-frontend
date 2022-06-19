@@ -3,10 +3,13 @@ import Table from "../../../components/Table/DataTable";
 import Toolbar from "./Toolbar/Toolbar";
 import {useDispatch, useSelector} from "react-redux";
 import InterfaceService from "../../../services/interface.service";
+import {useContext} from "@types/react";
+import {SocketContext} from "../../../context/socket";
 
 export default () => {
     const {devices} = useSelector((state) => state.deviceReducer);
     const dispatch = useDispatch();
+    const socket = useContext(SocketContext);
 
     const columns = useMemo(
         () => [
@@ -22,10 +25,21 @@ export default () => {
         []
     );
 
+    const handleResyncDone = async () => {
+        if (devices.length > 0)
+            await InterfaceService.fetchInterfaceByDevice(dispatch, devices[0].label);
+    };
+
     useEffect(() => {
         if (devices.length > 0)
             InterfaceService.fetchInterfaceByDevice(dispatch, devices[0].label).then();
-    }, []);
+
+        socket.on("RESYNC_DONE", handleResyncDone);
+
+        return () => {
+            socket.off("RESYNC_DONE", handleResyncDone);
+        };
+    }, [socket, handleResyncDone]);
 
     const {interfaces} = useSelector((state) => state.interfaceReducer);
 

@@ -1,12 +1,14 @@
 import {VStack} from "@chakra-ui/react";
-import {useEffect, useMemo} from "react";
+import {useContext, useEffect, useMemo} from "react";
 import Table from "../../components/Table/DataTable";
 import Toolbar from "./Toolbar/Toolbar";
 import {useDispatch, useSelector} from "react-redux";
 import DeviceService from "../../services/device.service";
+import {SocketContext} from "../../context/socket";
 
 export default () => {
     const dispatch = useDispatch();
+    const socket = useContext(SocketContext);
 
     const columns = useMemo(
         () => [
@@ -20,9 +22,19 @@ export default () => {
         []
     );
 
+    const handleResyncDone = async () => {
+        await DeviceService.fetchAll(dispatch);
+    };
+
     useEffect(() => {
         DeviceService.fetchAll(dispatch).then();
-    }, []);
+
+        socket.on("RESYNC_DONE", handleResyncDone);
+
+        return () => {
+            socket.off("RESYNC_DONE", handleResyncDone);
+        };
+    }, [socket, handleResyncDone]);
 
     const {devices} = useSelector((state) => state.deviceReducer);
 
