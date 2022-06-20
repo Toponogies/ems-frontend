@@ -112,7 +112,9 @@ export default (props) => {
                     <InputControl mb={4} name={"id"} label={"ID"} isDisabled={true}
                                   inputProps={{placeholder: "ID"}}/>
 
-                    <InputControl mb={4} name={"name"} label={"Name"} inputProps={{placeholder: "Name"}}/>
+                    <InputControl mb={4} name={"name"} label={"Name"} inputProps={{placeholder: "Name"}}
+                                  isDisabled={action === "Update"}
+                    />
 
                     <InputControl mb={4} name={"ipAddress"} label={"IP Address"}
                                   inputProps={{placeholder: "IP Address"}}/>
