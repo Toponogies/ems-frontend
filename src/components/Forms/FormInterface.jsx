@@ -12,16 +12,17 @@ export default (props) => {
     const toast = useToast();
     const {action, onClose} = props;
     const dispatch = useDispatch();
+    const {currentDevice} = useSelector((state) => state.inventoryReducer);
 
     const onSubmit = async (values) => {
         let toaster;
 
         if (action === "Add") {
-            let response = await InterfaceService.add(dispatch, values);
+            let response = await InterfaceService.add(dispatch, values, currentDevice);
             toaster = {
                 toast: toast,
                 title: "Added an interface",
-                description: "An interface is added",
+                description: "An interface is added. Go to the device that the interface belongs to and check it out",
                 status: "success"
             };
 
