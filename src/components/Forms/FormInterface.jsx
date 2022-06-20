@@ -144,6 +144,7 @@ export default (props) => {
                                    name={"networkDevice"}
                                    selectProps={{placeholder: "Select a device"}}
                                    onClick={onDeviceSelected}
+                                   isDisabled={action === "Update"}
                     >
                         {devices.map((device) => (
                             <option key={device.label}
