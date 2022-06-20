@@ -22,12 +22,13 @@ export default () => {
         []
     );
 
+    const {interfaces} = useSelector((state) => state.interfaceReducer);
+    const {currentDevice} = useSelector((state) => state.inventoryReducer);
+
     useEffect(() => {
-        if (devices.length > 0)
+        if (devices.length > 0 && currentDevice === devices[0].label)
             InterfaceService.fetchInterfaceByDevice(dispatch, devices[0].label).then();
     }, []);
-
-    const {interfaces} = useSelector((state) => state.interfaceReducer);
 
     return (
         <>

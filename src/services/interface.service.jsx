@@ -1,6 +1,5 @@
 import {createInterface, deleteInterface, getInterfacesByDevice, updateInterface} from "../apis/interface.api";
 import {addInterface, editInterface, loadInterfaces, removeInterface} from "../reducers/interface.reducer";
-import {useSelector} from "react-redux";
 
 const fetchInterfaceByDevice = async (dispatch, deviceLabel) => {
     if (deviceLabel === "") return;
@@ -13,11 +12,10 @@ const fetchInterfaceByDevice = async (dispatch, deviceLabel) => {
     }
 };
 
-const add = async (dispatch, payload) => {
+const add = async (dispatch, payload, currentDevice) => {
     try {
         const response = await createInterface(payload);
-        const {currentDevice} = useSelector((state) => state.inventoryReducer);
-        if(currentDevice === response.data.networkDevice)
+        if (response.data.networkDevice === currentDevice)
             dispatch(addInterface(response.data));
     } catch (error) {
         return error.response;

@@ -19,12 +19,13 @@ export default () => {
         []
     );
 
+    const {ports} = useSelector((state) => state.portReducer);
+    const {currentDevice} = useSelector((state) => state.inventoryReducer);
+
     useEffect(() => {
-        if (devices.length > 0)
+        if (devices.length > 0 && currentDevice === devices[0].label)
             PortService.fetchPortByDevice(dispatch, devices[0].label).then();
     }, []);
-
-    const {ports} = useSelector((state) => state.portReducer);
 
     return (
         <Table columns={columns} data={ports} tableName={"Port"}/>
