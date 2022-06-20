@@ -1,9 +1,8 @@
-import {useEffect, useMemo} from "react";
+import {useEffect, useMemo, useContext} from "react";
 import Table from "../../../components/Table/DataTable";
 import Toolbar from "./Toolbar/Toolbar";
 import {useDispatch, useSelector} from "react-redux";
 import InterfaceService from "../../../services/interface.service";
-import {useContext} from "@types/react";
 import {SocketContext} from "../../../context/socket";
 
 export default () => {

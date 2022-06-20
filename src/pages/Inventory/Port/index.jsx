@@ -1,8 +1,7 @@
-import {useEffect, useMemo} from "react";
+import {useEffect, useMemo, useContext} from "react";
 import Table from "../../../components/Table/DataTable";
 import {useDispatch, useSelector} from "react-redux";
 import PortService from "../../../services/port.service";
-import {useContext} from "@types/react";
 import {SocketContext} from "../../../context/socket";
 
 export default () => {
