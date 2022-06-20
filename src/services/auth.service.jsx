@@ -1,6 +1,11 @@
 import Keycloak from "keycloak-js";
+import {AUTH_CLIENT, AUTH_ENDPOINT, AUTH_REALM} from "../utils/constants";
 
-const keycloak = new Keycloak("/keycloak.json");
+const keycloak = new Keycloak({
+    url: AUTH_ENDPOINT,
+    realm: AUTH_REALM,
+    clientId: AUTH_CLIENT
+});
 
 const init = (onAuthenticatedCallback) => {
     keycloak.init({

@@ -1,5 +1,9 @@
 /* Environment constants */
 export const API_ENDPOINT_BASE = import.meta.env.VITE_API_ENDPOINT_BASE;
+export const AUTH_ENDPOINT = import.meta.env.VITE_AUTH_ENDPOINT;
+export const AUTH_REALM = import.meta.env.VITE_AUTH_REALM;
+export const AUTH_CLIENT = import.meta.env.VITE_AUTH_CLIENT;
+
 
 /* API endpoints */
 export const API_ENDPOINTS = {
