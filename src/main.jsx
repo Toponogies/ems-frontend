@@ -5,10 +5,10 @@ import ReactDOM from "react-dom/client";
 import App from "./layout/Main";
 import store from "./reducers/store";
 import AuthService from "./services/auth.service";
-import {socket} from "./socket/socket";
+import websocketClient from "./socket/socket";
 import SocketContext from "./socket/context";
 
-const appSocket = socket();
+const appSocket = websocketClient();
 
 const createApp = () => ReactDOM.createRoot(document.getElementById("root")).render(
     // <React.StrictMode>

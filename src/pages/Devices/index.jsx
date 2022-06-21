@@ -22,17 +22,24 @@ export default () => {
         []
     );
 
-    const handleResyncDone = async (data) => {
-        await DeviceService.fetchByLabel(dispatch, data.device);
+    const handleResyncDone = async (device) => {
+        await DeviceService.fetchByLabel(dispatch, device);
     };
 
     useEffect(() => {
         DeviceService.fetchAll(dispatch).then();
 
-        socket.on("RESYNC_DONE", handleResyncDone);
+        let s = socket.subscribe("/topic/resync-done", async (msg) => {
+            if (msg.body) {
+                const jsonBody = JSON.parse(msg.body);
+                if (jsonBody.device) {
+                    await handleResyncDone(jsonBody.device);
+                }
+            }
+        });
 
         return () => {
-            socket.off("RESYNC_DONE", handleResyncDone);
+            socket.unsubscribe(s.id);
         };
     }, []);
 

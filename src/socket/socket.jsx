@@ -1,22 +1,28 @@
-import {io} from "socket.io-client";
 import {SOCKET_ENDPOINT} from "../utils/constants";
 import React from "react";
+import {Client} from "@stomp/stompjs";
 
-export const socket = () => {
-    // const token = AuthService.getToken();
-    return io(SOCKET_ENDPOINT, {
-        reconnectionDelayMax: 10000
-    });
-
-    // socket.on("connect", () => {
-    //     console.log("Connected to socket")
-    // })
-    // return io(SOCKET_ENDPOINT, {
-    //     reconnectionDelayMax: 10000,
-    //     auth: {
-    //         token: token
-    //     }
-    // });
+const onDisconnected = () => {
+    console.log("Disconnected!!");
 };
 
+const onConnected = () => {
+    console.log("Connected!!");
+};
 
+const webSocketClient = () => {
+    let client = new Client({
+        brokerURL: SOCKET_ENDPOINT,
+        reconnectDelay: 5000,
+        heartbeatIncoming: 4000,
+        heartbeatOutgoing: 4000,
+        onConnect: onConnected,
+        onDisconnect: onDisconnected
+    });
+
+    client.activate();
+
+    return client
+};
+
+export default webSocketClient;

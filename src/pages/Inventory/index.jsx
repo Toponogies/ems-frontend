@@ -15,7 +15,7 @@ export default () => {
     useEffect(() => {
         if (devices.length > 0)
             dispatch(setCurrentDevice(devices[0].label));
-    }, [devices]);
+    }, []);
 
     const Page = () => {
         switch (page) {
