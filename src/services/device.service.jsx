@@ -2,7 +2,7 @@ import {
     createDevice,
     deleteDevice,
     downloadConfiguration,
-    executeCommand, getDevice, getDeviceByLabel,
+    executeCommand, getDeviceByLabel,
     getDevices,
     resyncDevices,
     updateDevice
