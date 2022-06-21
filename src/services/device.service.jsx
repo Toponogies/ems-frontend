@@ -2,7 +2,7 @@ import {
     createDevice,
     deleteDevice,
     downloadConfiguration,
-    executeCommand,
+    executeCommand, getDevice, getDeviceByLabel,
     getDevices,
     resyncDevices,
     updateDevice
@@ -14,6 +14,15 @@ const fetchAll = async (dispatch) => {
     try {
         let response = await getDevices();
         dispatch(loadDevices(response.data));
+    } catch (error) {
+        return error;
+    }
+};
+
+const fetchByLabel = async (dispatch, label) => {
+    try {
+        let response = await getDeviceByLabel(label);
+        dispatch(editDevice(response.data));
     } catch (error) {
         return error;
     }
@@ -78,6 +87,7 @@ const download = async (id) => {
 
 const DeviceService = {
     fetchAll,
+    fetchByLabel,
     add,
     update,
     remove,

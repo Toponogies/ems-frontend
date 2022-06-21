@@ -1,6 +1,7 @@
 import {
     Flex,
-    IconButton, NumberDecrementStepper,
+    IconButton,
+    NumberDecrementStepper,
     NumberIncrementStepper,
     NumberInput,
     NumberInputField,
@@ -16,7 +17,7 @@ import {
     Tr
 } from "@chakra-ui/react";
 import {forwardRef, useEffect, useRef} from "react";
-import {useRowSelect, useTable, usePagination} from "react-table";
+import {usePagination, useRowSelect, useTable} from "react-table";
 import {useDispatch, useSelector} from "react-redux";
 import {changeActiveCredentials} from "../../reducers/credential.reducer";
 import {changeActiveDevices} from "../../reducers/device.reducer";
@@ -44,7 +45,6 @@ export default ({columns, data, tableName}) => {
         getTableProps,
         getTableBodyProps,
         headerGroups,
-        rows,
         prepareRow,
         selectedFlatRows,
         page,
@@ -130,7 +130,7 @@ export default ({columns, data, tableName}) => {
                     ))}
                 </Thead>
                 <Tbody {...getTableBodyProps()}>
-                    {rows.map((row) => {
+                    {page.map((row, i) => {
                         prepareRow(row);
                         return (
                             <Tr {...row.getRowProps()}>
@@ -147,7 +147,7 @@ export default ({columns, data, tableName}) => {
                 </Tbody>
             </Table>
             <Flex justifyContent="space-between" m={4} alignItems="center">
-                <Flex>
+                <Flex mr={4}>
                     <Tooltip label="First Page">
                         <IconButton
                             onClick={() => gotoPage(0)}
@@ -210,7 +210,7 @@ export default ({columns, data, tableName}) => {
                     </Select>
                 </Flex>
 
-                <Flex>
+                <Flex ml={4}>
                     <Tooltip label="Next Page">
                         <IconButton
                             onClick={nextPage}

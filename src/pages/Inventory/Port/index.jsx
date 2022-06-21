@@ -1,8 +1,10 @@
-import {useEffect, useMemo, useContext} from "react";
+import {useEffect, useMemo} from "react";
 import Table from "../../../components/Table/DataTable";
 import {useDispatch, useSelector} from "react-redux";
 import PortService from "../../../services/port.service";
-import {SocketContext} from "../../../context/socket";
+import {useContext} from "@types/react";
+import SocketContext from "../../../socket/context";
+import DeviceService from "../../../services/device.service";
 
 export default () => {
     const {devices} = useSelector((state) => state.deviceReducer);
@@ -21,13 +23,16 @@ export default () => {
         []
     );
 
-    const handleResyncDone = async () => {
-        if (devices.length > 0)
-            await PortService.fetchPortByDevice(dispatch, devices[0].label);
+    const {ports} = useSelector((state) => state.portReducer);
+    const {currentDevice} = useSelector((state) => state.inventoryReducer);
+
+    const handleResyncDone = async (data) => {
+        if (data.device === currentDevice)
+            await PortService.fetchPortByDevice(dispatch, data.device);
     };
 
     useEffect(() => {
-        if (devices.length > 0)
+        if (devices.length > 0 && currentDevice === devices[0].label)
             PortService.fetchPortByDevice(dispatch, devices[0].label).then();
 
         socket.on("RESYNC_DONE", handleResyncDone);
@@ -35,10 +40,7 @@ export default () => {
         return () => {
             socket.off("RESYNC_DONE", handleResyncDone);
         };
-
-    }, [socket, handleResyncDone]);
-
-    const {ports} = useSelector((state) => state.portReducer);
+    }, []);
 
     return (
         <Table columns={columns} data={ports} tableName={"Port"}/>

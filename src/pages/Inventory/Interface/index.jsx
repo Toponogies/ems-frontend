@@ -1,15 +1,17 @@
-import {useEffect, useMemo, useContext} from "react";
+import {useEffect, useMemo} from "react";
 import Table from "../../../components/Table/DataTable";
 import Toolbar from "./Toolbar/Toolbar";
 import {useDispatch, useSelector} from "react-redux";
 import InterfaceService from "../../../services/interface.service";
-import {SocketContext} from "../../../context/socket";
+import PortService from "../../../services/port.service";
+import {useContext} from "@types/react";
+import SocketContext from "../../../socket/context";
 
 export default () => {
     const {devices} = useSelector((state) => state.deviceReducer);
     const dispatch = useDispatch();
     const socket = useContext(SocketContext);
-
+9
     const columns = useMemo(
         () => [
             {Header: "ID", accessor: "id"},
@@ -24,13 +26,16 @@ export default () => {
         []
     );
 
-    const handleResyncDone = async () => {
-        if (devices.length > 0)
-            await InterfaceService.fetchInterfaceByDevice(dispatch, devices[0].label);
+    const {interfaces} = useSelector((state) => state.interfaceReducer);
+    const {currentDevice} = useSelector((state) => state.inventoryReducer);
+
+    const handleResyncDone = async (data) => {
+        if (data.device === currentDevice)
+            await InterfaceService.fetchInterfaceByDevice(dispatch, data.device);
     };
 
     useEffect(() => {
-        if (devices.length > 0)
+        if (devices.length > 0 && currentDevice === devices[0].label)
             InterfaceService.fetchInterfaceByDevice(dispatch, devices[0].label).then();
 
         socket.on("RESYNC_DONE", handleResyncDone);
@@ -38,9 +43,7 @@ export default () => {
         return () => {
             socket.off("RESYNC_DONE", handleResyncDone);
         };
-    }, [socket, handleResyncDone]);
-
-    const {interfaces} = useSelector((state) => state.interfaceReducer);
+    }, []);
 
     return (
         <>

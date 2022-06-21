@@ -7,6 +7,12 @@ export async function getDevices() {
     });
 }
 
+export async function getDeviceByLabel(label) {
+    return await AxiosService.getAxiosClient().get(`${API_ENDPOINTS.DEVICE}/label/${label}`).then((res) => {
+        return res;
+    });
+}
+
 export async function createDevice(payload) {
     return await AxiosService.getAxiosClient().post(`${API_ENDPOINTS.DEVICE}`, payload).then((res) => {
         return res;

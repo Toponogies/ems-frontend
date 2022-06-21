@@ -4,7 +4,7 @@ import Table from "../../components/Table/DataTable";
 import Toolbar from "./Toolbar/Toolbar";
 import {useDispatch, useSelector} from "react-redux";
 import DeviceService from "../../services/device.service";
-import {SocketContext} from "../../context/socket";
+import SocketContext from "../../socket/context";
 
 export default () => {
     const dispatch = useDispatch();
@@ -22,8 +22,8 @@ export default () => {
         []
     );
 
-    const handleResyncDone = async () => {
-        await DeviceService.fetchAll(dispatch);
+    const handleResyncDone = async (data) => {
+        await DeviceService.fetchByLabel(dispatch, data.device);
     };
 
     useEffect(() => {
@@ -34,7 +34,7 @@ export default () => {
         return () => {
             socket.off("RESYNC_DONE", handleResyncDone);
         };
-    }, [socket, handleResyncDone]);
+    }, []);
 
     const {devices} = useSelector((state) => state.deviceReducer);
 
