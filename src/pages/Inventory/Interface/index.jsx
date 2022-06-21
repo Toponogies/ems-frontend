@@ -3,6 +3,7 @@ import Table from "../../../components/Table/DataTable";
 import Toolbar from "./Toolbar/Toolbar";
 import {useDispatch, useSelector} from "react-redux";
 import InterfaceService from "../../../services/interface.service";
+import {setCurrentDevice} from "../../../reducers/inventory.reducer";
 
 export default () => {
     const {devices} = useSelector((state) => state.deviceReducer);
@@ -26,8 +27,10 @@ export default () => {
     const {currentDevice} = useSelector((state) => state.inventoryReducer);
 
     useEffect(() => {
-        if (devices.length > 0 && currentDevice === devices[0].label)
+        if (devices.length > 0 && (currentDevice === "" || currentDevice === devices[0].label)) {
+            dispatch(setCurrentDevice(devices[0].label));
             InterfaceService.fetchInterfaceByDevice(dispatch, devices[0].label).then();
+        }
     }, []);
 
     return (

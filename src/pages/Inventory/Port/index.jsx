@@ -2,6 +2,7 @@ import {useEffect, useMemo} from "react";
 import Table from "../../../components/Table/DataTable";
 import {useDispatch, useSelector} from "react-redux";
 import PortService from "../../../services/port.service";
+import {setCurrentDevice} from "../../../reducers/inventory.reducer";
 
 export default () => {
     const {devices} = useSelector((state) => state.deviceReducer);
@@ -23,8 +24,10 @@ export default () => {
     const {currentDevice} = useSelector((state) => state.inventoryReducer);
 
     useEffect(() => {
-        if (devices.length > 0 && currentDevice === devices[0].label)
+        if (devices.length > 0 && (currentDevice === "" || currentDevice === devices[0].label)) {
+            dispatch(setCurrentDevice(devices[0].label));
             PortService.fetchPortByDevice(dispatch, devices[0].label).then();
+        }
     }, []);
 
     return (
