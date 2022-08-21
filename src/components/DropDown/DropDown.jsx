@@ -11,12 +11,12 @@ export default (props) => {
 
     return (
         <Select visibility={visibility}
-            onChange={(option) => {
-                PortService.fetchPortByDevice(dispatch, option.target.value).then();
-                InterfaceService.fetchInterfaceByDevice(dispatch, option.target.value).then();
-                AlarmService.fetchAlarmByDevice(dispatch, option.target.value).then();
-                dispatch(setCurrentDevice(option.target.value));
-            }}
+                onChange={(option) => {
+                    PortService.fetchPortByDevice(dispatch, option.target.value).then();
+                    InterfaceService.fetchInterfaceByDevice(dispatch, option.target.value).then();
+                    AlarmService.fetchAlarmByDevice(dispatch, option.target.value).then();
+                    dispatch(setCurrentDevice(option.target.value));
+                }}
         >
             {devices.map((d) => {
                 return (

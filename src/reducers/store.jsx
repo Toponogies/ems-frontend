@@ -15,6 +15,6 @@ export default configureStore({
         portReducer: portReducer,
         interfaceReducer: interfaceReducer,
         loginReducer: loginReducer,
-        alarmReducer: alarmReducer,
+        alarmReducer: alarmReducer
     }
 });

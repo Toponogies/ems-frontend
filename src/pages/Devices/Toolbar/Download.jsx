@@ -26,7 +26,7 @@ export default () => {
                 title: "Downloading configuration",
                 description: "Configuration of devices is downloading",
                 status: "success"
-            }
+            };
             if (response) {
                 toaster = {
                     toast: toast,
