@@ -43,10 +43,14 @@ export async function executeCommand(id, payload) {
     });
 }
 
-export async function downloadConfiguration(id) {
-    return await AxiosService.getAxiosClient().get(`${API_ENDPOINTS.DEVICE}/${id}/configuration`, {
-        responseType: "blob"
-    }).then((res) => {
-        return res;
+export async function downloadConfiguration(payload) {
+    return await AxiosService.getAxiosClient().post(`${API_ENDPOINTS.DEVICE}/configuration`,
+        payload,
+        {responseType: "blob"})
+        .then((res) => {
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(res.data);
+        link.download = 'download.zip';
+        link.click();
     });
 }

@@ -8,7 +8,6 @@ import {
     updateDevice
 } from "../apis/device.api";
 import {addDevice, editDevice, loadDevices, removeDevice} from "../reducers/device.reducer";
-import fileDownload from "js-file-download";
 
 const fetchAll = async (dispatch) => {
     try {
@@ -76,10 +75,9 @@ const execute = async (dispatch, id, payload) => {
     }
 };
 
-const download = async (id) => {
+const download = async (payload) => {
     try {
-        let response = await downloadConfiguration(id);
-        fileDownload(response.data, "configuration_" + id + ".txt");
+        await downloadConfiguration(payload);
     } catch (error) {
         return error.response;
     }

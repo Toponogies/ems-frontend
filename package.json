@@ -18,7 +18,6 @@
     "formik": "^2.2.9",
     "formik-chakra-ui": "^1.6.0",
     "framer-motion": "^6.3.4",
-    "js-file-download": "^0.4.12",
     "keycloak-js": "^18.0.1",
     "prop-types": "^15.8.1",
     "react": "^18.1.0",
@@ -28,7 +27,6 @@
     "react-redux": "^8.0.2",
     "react-stomp": "^5.1.0",
     "react-table": "^7.8.0",
-    "socket.io-client": "^4.5.1",
     "sockjs": "^0.3.24",
     "yup": "^0.32.11"
   },

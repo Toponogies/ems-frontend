@@ -9,26 +9,29 @@ export default () => {
     const {activeDevices} = useSelector((state) => state.deviceReducer);
 
     const onSubmit = async () => {
-        let toaster = {
-            toast: toast,
-            title: "Downloading a configuration",
-            description: "Configuration of a device is downloading",
-            status: "success"
-        };
-        if (activeDevices.length !== 1) {
-            toaster = {
+        let toaster;
+        if (activeDevices.length < 1) {
+            let toaster = {
                 toast: toast,
                 title: "Unknown device",
-                description: "Please select one and only one device to download configuration",
+                description: "Please select one and more devices to download",
                 status: "error"
             };
+            Toast(toaster);
         } else {
-            let response = await DeviceService.download(activeDevices[0].id);
+            let ids = activeDevices.map(device => device.id);
+            let response = await DeviceService.download(ids);
+            toaster = {
+                toast: toast,
+                title: "Downloading configuration",
+                description: "Configuration of devices is downloading",
+                status: "success"
+            }
             if (response) {
                 toaster = {
                     toast: toast,
-                    title: "Fail to download configuration of a device",
-                    description: "Configuration file cannot be downloaded",
+                    title: "Fail to download configuration of devices",
+                    description: "Configuration files cannot be downloaded",
                     status: "error"
                 };
             }
