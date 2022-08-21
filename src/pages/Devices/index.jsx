@@ -62,6 +62,22 @@ export default () => {
         return result
     };
 
+    const calculateFirmwareChart = (devices) => {
+        let result = [];
+        devices.forEach(function(a) {
+            if (!this[a.firmware]) {
+                this[a.firmware] = {
+                    type: a.firmware,
+                    count: 0
+                };
+                result.push(this[a.firmware]);
+            }
+            this[a.firmware].count++;
+        }, Object.create(null));
+        return result
+    };
+
+
 
     useEffect(() => {
         DeviceService.fetchAll(dispatch).then();
@@ -83,6 +99,7 @@ export default () => {
     const {devices} = useSelector((state) => state.deviceReducer);
     let typeChartData = calculateTypeChart(devices);
     let stateChartData = calculateStateChart(devices);
+    let firmwareChartData = calculateFirmwareChart(devices);
 
     return (
         <VStack spacing="20px">
@@ -100,6 +117,16 @@ export default () => {
                                   text: "Device Type"
                               }
                         }}/>
+                <PieChart series={firmwareChartData.map(a => a.count)}
+                          options={{
+                              labels: firmwareChartData.map(a => a.type),
+                              legend: {
+                                  show: false
+                              },
+                              title: {
+                                  text: "Firmware"
+                              }
+                          }}/>
                 <PieChart series={stateChartData.map(a => a.count)}
                           options={{
                               labels: stateChartData.map(a => a.type),
