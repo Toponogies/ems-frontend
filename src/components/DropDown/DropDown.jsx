@@ -6,11 +6,11 @@ import {setCurrentDevice} from "../../reducers/inventory.reducer";
 import AlarmService from "../../services/alarm.service";
 
 export default (props) => {
-    const {devices} = props;
+    const {devices, visibility} = props;
     const dispatch = useDispatch();
 
     return (
-        <Select
+        <Select visibility={visibility}
             onChange={(option) => {
                 PortService.fetchPortByDevice(dispatch, option.target.value).then();
                 InterfaceService.fetchInterfaceByDevice(dispatch, option.target.value).then();

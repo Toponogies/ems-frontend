@@ -1,17 +1,16 @@
-import {Divider, HStack, VStack} from "@chakra-ui/react";
-import {useEffect, useMemo} from "react";
+import {Divider, Heading, HStack, Spacer, Switch, VStack} from "@chakra-ui/react";
+import {useEffect, useMemo, useState} from "react";
 import Table from "../../components/Table/DataTable";
 import {useDispatch, useSelector} from "react-redux";
 import AlarmService from "../../services/alarm.service";
-import DropDown from "../Inventory/DropDown";
-import {setCurrentDevice} from "../../reducers/inventory.reducer";
+import DropDown from "../../components/DropDown/DropDown";
 import PieChart from "../../components/Chart/PieChart";
 
 export default () => {
     const dispatch = useDispatch();
     const {devices} = useSelector((state) => state.deviceReducer);
 
-    const columns = useMemo(
+    const columnsSpecific = useMemo(
         () => [
             {Header: "Number", accessor: "alarmNumber"},
             {Header: "Date", accessor: "date"},
@@ -21,6 +20,18 @@ export default () => {
         ],
         []
     );
+    const columnsAll = useMemo(
+        () => [
+            {Header: "Number", accessor: "alarmNumber"},
+            {Header: "Managed Entity", accessor: "networkDevice"},
+            {Header: "Date", accessor: "date"},
+            {Header: "Severity", accessor: "severity"},
+            {Header: "Condition", accessor: "condition"},
+            {Header: "Description", accessor: "description"},
+        ],
+        []
+    );
+
 
     const {alarms} = useSelector((state) => state.alarmReducer);
     const {currentDevice} = useSelector((state) => state.inventoryReducer);
@@ -67,20 +78,32 @@ export default () => {
 
 
     useEffect(() => {
-        if (devices.length > 0 && (currentDevice === "" || currentDevice === devices[0].label)) {
-            AlarmService.fetchAlarmByDevice(dispatch, devices[0].label).then();
-            dispatch(setCurrentDevice(devices[0].label));
-        }
-
-    }, [devices]);
+        AlarmService.fetchAlarms(dispatch).then()
+    }, []);
 
     let severityChartData = calculateSeverityChart(alarms);
     let conditionChartData = calculateConditionChart(alarms);
+    const [isAll, setIsAll] = useState(true);
+
+    const onChangeSwitch = (event) => {
+        setIsAll(event.target.checked)
+        if(event.target.checked)
+            AlarmService.fetchAlarms(dispatch).then()
+        else
+            AlarmService.fetchAlarmByDevice(dispatch, currentDevice).then()
+    }
 
     return (
         <VStack spacing="20px">
-            <DropDown devices={devices}/>
-            <Table columns={columns} data={alarms} tableName={"Alarm"}/>
+            <HStack spacing="8px" width="full">
+                <>
+                    <Heading size={"md"}>Show all</Heading>
+                    <Switch defaultChecked colorScheme={"blue"} onChange={onChangeSwitch}></Switch>
+                </>
+                <Spacer/>
+            </HStack>
+            <DropDown visibility={isAll ? "hidden" : "visible"} devices={devices}/>
+            <Table columns={isAll ? columnsAll : columnsSpecific} data={alarms} tableName={"Alarm"}/>
             <Divider />
             <HStack spacing={40}>
                 <PieChart series={severityChartData.map(a => a.count)}
