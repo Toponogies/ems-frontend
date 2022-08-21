@@ -6,11 +6,13 @@ import Resync from "./Resync";
 import CheckInfo from "./CheckInfo";
 import Command from "./Command";
 import Download from "./Download";
+import Import from "./Import";
 
 export default () => {
     return (
         <HStack spacing="8px" width="full">
             <Spacer/>
+            <Import/>
             <Resync/>
             <Command/>
             <Download/>

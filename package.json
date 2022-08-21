@@ -1,7 +1,7 @@
 {
   "name": "genso-ui",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -23,12 +23,14 @@
     "react": "^18.1.0",
     "react-apexcharts": "^1.4.0",
     "react-dom": "^18.1.0",
+    "react-dropzone": "^14.2.2",
     "react-icons": "^4.3.1",
     "react-redux": "^8.0.2",
     "react-stomp": "^5.1.0",
     "react-table": "^7.8.0",
     "sockjs": "^0.3.24",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "react-json-view": "^1.21.3"
   },
   "devDependencies": {
     "@babel/core": "^7.18.2",
@@ -40,5 +42,11 @@
     "eslint-config-prettier": "^8.5.0",
     "prettier": "^2.6.2",
     "vite": "^2.9.9"
+  },
+  "overrides": {
+    "react-json-view": {
+      "react": "18.1.0",
+      "react-dom": "18.1.0"
+    }
   }
 }

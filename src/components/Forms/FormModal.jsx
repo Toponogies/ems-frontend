@@ -3,6 +3,7 @@ import FormCredential from "./FormCredential";
 import FormInterface from "./FormInterface";
 import FormDevice from "./FormDevice";
 import FormCommand from "./FormCommand";
+import FormImport from "./FormImport";
 
 export default (props) => {
     const {isOpen, onClose, action, entity} = props;
@@ -17,6 +18,9 @@ export default (props) => {
                 return <FormCredential action={action} onClose={onClose}/>;
             case "Command":
                 return <FormCommand/>;
+            case "Import":
+                return <FormImport onClose={onClose}/>;
+
             // TODO: Not found page
         }
     };
