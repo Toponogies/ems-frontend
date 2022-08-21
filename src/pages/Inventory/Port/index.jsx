@@ -25,8 +25,8 @@ export default () => {
 
     useEffect(() => {
         if (devices.length > 0 && (currentDevice === "" || currentDevice === devices[0].label)) {
-            dispatch(setCurrentDevice(devices[0].label));
             PortService.fetchPortByDevice(dispatch, devices[0].label).then();
+            dispatch(setCurrentDevice(devices[0].label));
         }
     }, []);
 

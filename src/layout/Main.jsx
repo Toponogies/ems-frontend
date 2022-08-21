@@ -17,6 +17,7 @@ import {
 } from "@chakra-ui/react";
 import {FaSignOutAlt} from "react-icons/fa";
 import AuthService from "../services/auth.service";
+import Alarm from "../pages/Alarm";
 
 export default () => {
     const onLogout = () => {
@@ -33,6 +34,7 @@ export default () => {
                         <TabList>
                             <Tab>Devices</Tab>
                             <Tab>Inventory</Tab>
+                            <Tab>Alarms</Tab>
                             <Tab>Credentials</Tab>
                         </TabList>
 
@@ -60,6 +62,9 @@ export default () => {
                         </TabPanel>
                         <TabPanel>
                             <Inventory/>
+                        </TabPanel>
+                        <TabPanel>
+                            <Alarm/>
                         </TabPanel>
                         <TabPanel>
                             <Credentials/>
