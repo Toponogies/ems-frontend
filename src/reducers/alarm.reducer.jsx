@@ -3,15 +3,19 @@ import {createSlice} from "@reduxjs/toolkit";
 export const alarmSlide = createSlice({
     name: "alarmSlide",
     initialState: {
-        alarms: []
+        alarms: [],
+        isShowAll: true
     },
     reducers: {
         loadAlarms: (state, action) => {
             state.alarms = action.payload;
+        },
+        setIsShowAll: (state, action) => {
+            state.isShowAll = action.payload;
         }
     }
 });
 
-export const {loadAlarms} = alarmSlide.actions;
+export const {loadAlarms, setIsShowAll} = alarmSlide.actions;
 
 export default alarmSlide.reducer;

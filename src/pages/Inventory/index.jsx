@@ -1,5 +1,5 @@
 import {VStack} from "@chakra-ui/react";
-import DropDown from "./DropDown";
+import DropDown from "../../components/DropDown/DropDown";
 import InventoryDrawer from "../../components/Drawer/InventoryDrawer";
 import {useDispatch, useSelector} from "react-redux";
 import Interface from "./Interface";

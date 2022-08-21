@@ -11,10 +11,10 @@ const fetchAlarmByDevice = async (dispatch, deviceLabel) => {
     }
 };
 
-const fetchAlarms = async () => {
+const fetchAlarms = async (dispatch) => {
     try {
         let response = await fetchAll();
-        return response.data;
+        dispatch(loadAlarms(response.data));
     } catch (error) {
         return error;
     }
@@ -22,6 +22,7 @@ const fetchAlarms = async () => {
 
 const AlarmService = {
     fetchAlarmByDevice,
+    fetchAlarms
 };
 
 export default AlarmService;
