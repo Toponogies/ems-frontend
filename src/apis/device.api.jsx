@@ -19,6 +19,13 @@ export async function createDevice(payload) {
     });
 }
 
+export async function importDevices(payload) {
+    return await AxiosService.getAxiosClient().post(`${API_ENDPOINTS.DEVICE}/import`, payload).then((res) => {
+        return res;
+    });
+}
+
+
 export async function updateDevice(id, payload) {
     return await AxiosService.getAxiosClient().put(`${API_ENDPOINTS.DEVICE}/${id}`, payload).then((res) => {
         return res;
@@ -48,9 +55,9 @@ export async function downloadConfiguration(payload) {
         payload,
         {responseType: "blob"})
         .then((res) => {
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(res.data);
-        link.download = 'download.zip';
-        link.click();
-    });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(res.data);
+            link.download = "download.zip";
+            link.click();
+        });
 }

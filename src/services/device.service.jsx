@@ -2,8 +2,10 @@ import {
     createDevice,
     deleteDevice,
     downloadConfiguration,
-    executeCommand, getDeviceByLabel,
+    executeCommand,
+    getDeviceByLabel,
     getDevices,
+    importDevices,
     resyncDevices,
     updateDevice
 } from "../apis/device.api";
@@ -32,6 +34,16 @@ const add = async (dispatch, payload) => {
         const response = await createDevice(payload);
         response.data.credential = payload.credential;
         dispatch(addDevice(response.data));
+    } catch (error) {
+        return error.response;
+    }
+};
+
+const batchAdd = async (dispatch, payload) => {
+    try {
+        await importDevices(payload);
+        let response = await getDevices();
+        dispatch(loadDevices(response.data));
     } catch (error) {
         return error.response;
     }
@@ -91,7 +103,8 @@ const DeviceService = {
     remove,
     resync,
     execute,
-    download
+    download,
+    batchAdd
 };
 
 export default DeviceService;

@@ -29,7 +29,7 @@ export default () => {
 
     const calculateTypeChart = (devices) => {
         let result = [];
-        devices.forEach(function(a) {
+        devices.forEach(function (a) {
             if (!this[a.deviceType]) {
                 this[a.deviceType] = {
                     type: a.deviceType,
@@ -39,17 +39,17 @@ export default () => {
             }
             this[a.deviceType].count++;
         }, Object.create(null));
-        let r
+        let r;
         for (r of result) {
             if (r.type === null)
-                r.type = "Unknown type"
+                r.type = "Unknown type";
         }
-        return result
+        return result;
     };
 
     const calculateStateChart = (devices) => {
         let result = [];
-        devices.forEach(function(a) {
+        devices.forEach(function (a) {
             if (!this[a.state]) {
                 this[a.state] = {
                     type: a.state,
@@ -59,12 +59,12 @@ export default () => {
             }
             this[a.state].count++;
         }, Object.create(null));
-        return result
+        return result;
     };
 
     const calculateFirmwareChart = (devices) => {
         let result = [];
-        devices.forEach(function(a) {
+        devices.forEach(function (a) {
             if (!this[a.firmware]) {
                 this[a.firmware] = {
                     type: a.firmware,
@@ -74,9 +74,13 @@ export default () => {
             }
             this[a.firmware].count++;
         }, Object.create(null));
-        return result
+        let r;
+        for (r of result) {
+            if (r.type === null)
+                r.type = "Unknown firmware";
+        }
+        return result;
     };
-
 
 
     useEffect(() => {
@@ -105,7 +109,7 @@ export default () => {
         <VStack spacing="20px">
             <Toolbar/>
             <Table columns={columns} data={devices} tableName={"Device"}/>
-            <Divider />
+            <Divider/>
             <HStack spacing={40}>
                 <PieChart series={typeChartData.map(a => a.count)}
                           options={{
@@ -116,7 +120,7 @@ export default () => {
                               title: {
                                   text: "Device Type"
                               }
-                        }}/>
+                          }}/>
                 <PieChart series={firmwareChartData.map(a => a.count)}
                           options={{
                               labels: firmwareChartData.map(a => a.type),
@@ -136,7 +140,7 @@ export default () => {
                               title: {
                                   text: "State"
                               }
-                }}/>
+                          }}/>
             </HStack>
         </VStack>
     );

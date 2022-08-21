@@ -1,12 +1,17 @@
-import {Box, Button, Heading} from "@chakra-ui/react";
+import {Box, Button, Heading, useToast} from "@chakra-ui/react";
 import {useDropzone} from "react-dropzone";
 import "./style.css";
 import {useState} from "react";
 import {Form, Formik} from "formik";
 import ReactJson from "react-json-view";
+import DeviceService from "../../services/device.service";
+import {useDispatch} from "react-redux";
+import Toast from "../Toast/Toast";
 
 export default (props) => {
     const {onClose} = props;
+    const toast = useToast();
+    const dispatch = useDispatch();
 
     let [result, setResult] = useState({});
     let [error, setError] = useState("");
@@ -28,8 +33,24 @@ export default (props) => {
     };
 
     const onSubmit = async (values) => {
-        console.log(result);
+        let toaster;
+        let response = await DeviceService.batchAdd(dispatch, result);
+        toaster = {
+            toast: toast,
+            title: "Imported devices",
+            description: "Devices are imported",
+            status: "success"
+        };
+        if (response) {
+            toaster = {
+                toast: toast,
+                title: "Fail to import devices",
+                description: response.data.message,
+                status: "error"
+            };
+        }
         onClose();
+        Toast(toaster);
     };
 
     const {
