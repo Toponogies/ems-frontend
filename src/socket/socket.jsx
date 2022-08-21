@@ -22,7 +22,7 @@ const webSocketClient = () => {
 
     client.activate();
 
-    return client
+    return client;
 };
 
 export default webSocketClient;

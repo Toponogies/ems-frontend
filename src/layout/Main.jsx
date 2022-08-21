@@ -3,7 +3,9 @@ import Devices from "@/pages/Devices";
 import Inventory from "@/pages/Inventory";
 import {
     Avatar,
-    Box, Button,
+    Box,
+    Button,
+    chakra,
     Heading,
     HStack,
     Spacer,
@@ -18,23 +20,52 @@ import {
 import {FaSignOutAlt} from "react-icons/fa";
 import AuthService from "../services/auth.service";
 import Alarm from "../pages/Alarm";
+import {useDispatch, useSelector} from "react-redux";
+import {resetNewAlarms} from "../reducers/alarm.reducer";
 
 export default () => {
+    const dispatch = useDispatch();
+    const {newAlarms} = useSelector((state) => state.alarmReducer);
+
     const onLogout = () => {
         AuthService.doLogout();
     };
+
+    const onReset = () => {
+        dispatch(resetNewAlarms());
+    };
+
     return (
         <Box px={8} py={4}>
             <Tabs variant="soft-rounded" w="full">
                 <VStack spacing="16px">
                     <HStack spacing="32px" w="full">
                         <Heading as="h1" size="xl">
-                            Genso UI
+                            EMS UI
                         </Heading>
                         <TabList>
                             <Tab>Devices</Tab>
                             <Tab>Inventory</Tab>
-                            <Tab>Alarms</Tab>
+                            <chakra.span pos="relative" display="inline-block" mr={4}>
+                                <Tab onClick={onReset}>Alarms</Tab>
+                                <chakra.span
+                                    style={{"display": newAlarms === 0 ? "none" : "unset"}}
+                                    pos="absolute"
+                                    top="-1px"
+                                    right="-1px"
+                                    px={2}
+                                    py={1}
+                                    fontSize="xs"
+                                    fontWeight="bold"
+                                    lineHeight="none"
+                                    color="red.100"
+                                    transform="translate(50%,-50%)"
+                                    bg="red.600"
+                                    rounded="full"
+                                >
+                                    {newAlarms}
+                                </chakra.span>
+                            </chakra.span>
                             <Tab>Credentials</Tab>
                         </TabList>
 

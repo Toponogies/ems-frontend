@@ -1,22 +1,25 @@
 import {Divider, Heading, HStack, Spacer, Switch, VStack} from "@chakra-ui/react";
-import {useEffect, useMemo, useState} from "react";
+import {useContext, useEffect, useMemo, useState} from "react";
 import Table from "../../components/Table/DataTable";
 import {useDispatch, useSelector} from "react-redux";
 import AlarmService from "../../services/alarm.service";
 import DropDown from "../../components/DropDown/DropDown";
 import PieChart from "../../components/Chart/PieChart";
+import SocketContext from "../../socket/context";
+import {addAlarm, increaseNewAlarms} from "../../reducers/alarm.reducer";
 
 export default () => {
     const dispatch = useDispatch();
     const {devices} = useSelector((state) => state.deviceReducer);
+    const socket = useContext(SocketContext);
 
     const columnsSpecific = useMemo(
         () => [
             {Header: "Number", accessor: "alarmNumber"},
             {Header: "Date", accessor: "date"},
-            {Header: "Severity", accessor: "severity"},
+            {Header: "Severity", accessor: "alarmSeverity"},
             {Header: "Condition", accessor: "condition"},
-            {Header: "Description", accessor: "description"},
+            {Header: "Description", accessor: "description"}
         ],
         []
     );
@@ -25,9 +28,9 @@ export default () => {
             {Header: "Number", accessor: "alarmNumber"},
             {Header: "Managed Entity", accessor: "networkDevice"},
             {Header: "Date", accessor: "date"},
-            {Header: "Severity", accessor: "severity"},
+            {Header: "Severity", accessor: "alarmSeverity"},
             {Header: "Condition", accessor: "condition"},
-            {Header: "Description", accessor: "description"},
+            {Header: "Description", accessor: "description"}
         ],
         []
     );
@@ -35,30 +38,39 @@ export default () => {
 
     const {alarms} = useSelector((state) => state.alarmReducer);
     const {currentDevice} = useSelector((state) => state.inventoryReducer);
+    const [isAll, setIsAll] = useState(true);
+
+    const onChangeSwitch = (event) => {
+        setIsAll(event.target.checked);
+        if (event.target.checked)
+            AlarmService.fetchAlarms(dispatch).then();
+        else
+            AlarmService.fetchAlarmByDevice(dispatch, currentDevice).then();
+    };
 
     const calculateSeverityChart = (alarms) => {
         let result = [];
-        alarms.forEach(function(a) {
-            if (!this[a.severity]) {
-                this[a.severity] = {
-                    type: a.severity,
+        alarms.forEach(function (a) {
+            if (!this[a.alarmSeverity]) {
+                this[a.alarmSeverity] = {
+                    type: a.alarmSeverity,
                     count: 0
                 };
-                result.push(this[a.severity]);
+                result.push(this[a.alarmSeverity]);
             }
-            this[a.severity].count++;
+            this[a.alarmSeverity].count++;
         }, Object.create(null));
-        let r
+        let r;
         for (r of result) {
             if (r.type === null)
-                r.type = "Unknown severity"
+                r.type = "Unknown severity";
         }
-        return result
+        return result;
     };
 
     const calculateConditionChart = (alarms) => {
         let result = [];
-        alarms.forEach(function(a) {
+        alarms.forEach(function (a) {
             if (!this[a.condition]) {
                 this[a.condition] = {
                     type: a.condition,
@@ -68,30 +80,37 @@ export default () => {
             }
             this[a.condition].count++;
         }, Object.create(null));
-        let r
+        let r;
         for (r of result) {
             if (r.type === null)
-                r.type = "Unknown condition"
+                r.type = "Unknown condition";
         }
-        return result
+        return result;
     };
 
-
     useEffect(() => {
-        AlarmService.fetchAlarms(dispatch).then()
-    }, []);
+        if (isAll)
+            AlarmService.fetchAlarms(dispatch).then();
+        else
+            AlarmService.fetchAlarmByDevice(dispatch, currentDevice).then();
+
+        let s = socket.subscribe("/topic/alarm", async (msg) => {
+            if (msg.body) {
+                const jsonBody = JSON.parse(msg.body);
+                dispatch(increaseNewAlarms());
+                if (isAll || (!isAll && jsonBody.networkDevice === currentDevice)) {
+                    dispatch(addAlarm(jsonBody));
+                }
+            }
+        });
+
+        return () => {
+            socket.unsubscribe(s.id);
+        };
+    }, [currentDevice]);
 
     let severityChartData = calculateSeverityChart(alarms);
     let conditionChartData = calculateConditionChart(alarms);
-    const [isAll, setIsAll] = useState(true);
-
-    const onChangeSwitch = (event) => {
-        setIsAll(event.target.checked)
-        if(event.target.checked)
-            AlarmService.fetchAlarms(dispatch).then()
-        else
-            AlarmService.fetchAlarmByDevice(dispatch, currentDevice).then()
-    }
 
     return (
         <VStack spacing="20px">
@@ -104,7 +123,7 @@ export default () => {
             </HStack>
             <DropDown visibility={isAll ? "hidden" : "visible"} devices={devices}/>
             <Table columns={isAll ? columnsAll : columnsSpecific} data={alarms} tableName={"Alarm"}/>
-            <Divider />
+            <Divider/>
             <HStack spacing={40}>
                 <PieChart series={severityChartData.map(a => a.count)}
                           options={{

@@ -43,6 +43,6 @@ const CredentialService = {
     add,
     update,
     remove
-}
+};
 
 export default CredentialService;
