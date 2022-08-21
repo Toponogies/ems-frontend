@@ -83,6 +83,7 @@ export default () => {
     const {devices} = useSelector((state) => state.deviceReducer);
     let typeChartData = calculateTypeChart(devices);
     let stateChartData = calculateStateChart(devices);
+
     return (
         <VStack spacing="20px">
             <Toolbar/>

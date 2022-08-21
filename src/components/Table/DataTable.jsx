@@ -16,13 +16,21 @@ import {
     Tooltip,
     Tr
 } from "@chakra-ui/react";
+import {chakra} from "@chakra-ui/react";
 import {forwardRef, useEffect, useRef} from "react";
-import {usePagination, useRowSelect, useTable} from "react-table";
+import {usePagination, useRowSelect, useTable, useSortBy} from "react-table";
 import {useDispatch, useSelector} from "react-redux";
 import {changeActiveCredentials} from "../../reducers/credential.reducer";
 import {changeActiveDevices} from "../../reducers/device.reducer";
 import {changeActiveInterfaces} from "../../reducers/interface.reducer";
-import {FaArrowLeft, FaArrowRight, FaChevronLeft, FaChevronRight} from "react-icons/all";
+import {
+    FaArrowDown,
+    FaArrowLeft,
+    FaArrowRight,
+    FaArrowUp,
+    FaChevronLeft,
+    FaChevronRight,
+} from "react-icons/all";
 
 const IndeterminateCheckbox = forwardRef(({indeterminate, ...rest}, ref) => {
     const defaultRef = useRef();
@@ -62,10 +70,11 @@ export default ({columns, data, tableName}) => {
             columns,
             data
         },
+        useSortBy,
         usePagination,
         useRowSelect,
         (hooks) => {
-            if (tableName === "Port") return;
+            if (tableName === "Port" || tableName === "Alarm") return;
             hooks.visibleColumns.push((columns) => [
                 // Let's make a column for selection
                 {
@@ -113,6 +122,13 @@ export default ({columns, data, tableName}) => {
                 dispatch(changeActiveInterfaces(selectedFlatRows.map((row) => row.original)));
             }
             break;
+        // case "Alarm":
+        //     const {activeAlarms} = useSelector((state) => state.alarmReducer);
+        //     if (activeAlarms.length !== selectedFlatRows.length) {
+        //         dispatch(changeActiveInterfaces(selectedFlatRows.map((row) => row.original)));
+        //     }
+        //     break;
+
     }
 
     return (
@@ -122,8 +138,19 @@ export default ({columns, data, tableName}) => {
                     {headerGroups.map((headerGroup) => (
                         <Tr {...headerGroup.getHeaderGroupProps()}>
                             {headerGroup.headers.map((column) => (
-                                <Th {...column.getHeaderProps()}>
+                                <Th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                                    <Flex>
                                     {column.render("Header")}
+                                        <chakra.span pl='4'>
+                                            {column.isSorted ? (
+                                                column.isSortedDesc ? (
+                                                    <FaArrowDown aria-label='sorted descending' />
+                                                ) : (
+                                                    <FaArrowUp aria-label='sorted ascending' />
+                                                )
+                                            ) : null}
+                                        </chakra.span>
+                                    </Flex>
                                 </Th>
                             ))}
                         </Tr>

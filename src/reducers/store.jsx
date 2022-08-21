@@ -5,6 +5,7 @@ import deviceReducer from "./device.reducer";
 import portReducer from "./port.reducer";
 import interfaceReducer from "./interface.reducer";
 import loginReducer from "./login.reducer";
+import alarmReducer from "./alarm.reducer";
 
 export default configureStore({
     reducer: {
@@ -13,6 +14,7 @@ export default configureStore({
         deviceReducer: deviceReducer,
         portReducer: portReducer,
         interfaceReducer: interfaceReducer,
-        loginReducer: loginReducer
+        loginReducer: loginReducer,
+        alarmReducer: alarmReducer,
     }
 });
