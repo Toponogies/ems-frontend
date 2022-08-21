@@ -17,7 +17,7 @@ export default () => {
         () => [
             {Header: "Number", accessor: "alarmNumber"},
             {Header: "Date", accessor: "date"},
-            {Header: "Severity", accessor: "severity"},
+            {Header: "Severity", accessor: "alarmSeverity"},
             {Header: "Condition", accessor: "condition"},
             {Header: "Description", accessor: "description"}
         ],
@@ -28,7 +28,7 @@ export default () => {
             {Header: "Number", accessor: "alarmNumber"},
             {Header: "Managed Entity", accessor: "networkDevice"},
             {Header: "Date", accessor: "date"},
-            {Header: "Severity", accessor: "severity"},
+            {Header: "Severity", accessor: "alarmSeverity"},
             {Header: "Condition", accessor: "condition"},
             {Header: "Description", accessor: "description"}
         ],
@@ -51,14 +51,14 @@ export default () => {
     const calculateSeverityChart = (alarms) => {
         let result = [];
         alarms.forEach(function (a) {
-            if (!this[a.severity]) {
-                this[a.severity] = {
-                    type: a.severity,
+            if (!this[a.alarmSeverity]) {
+                this[a.alarmSeverity] = {
+                    type: a.alarmSeverity,
                     count: 0
                 };
-                result.push(this[a.severity]);
+                result.push(this[a.alarmSeverity]);
             }
-            this[a.severity].count++;
+            this[a.alarmSeverity].count++;
         }, Object.create(null));
         let r;
         for (r of result) {
@@ -89,14 +89,17 @@ export default () => {
     };
 
     useEffect(() => {
-        AlarmService.fetchAlarms(dispatch).then();
+        if (isAll)
+            AlarmService.fetchAlarms(dispatch).then();
+        else
+            AlarmService.fetchAlarmByDevice(dispatch, currentDevice).then();
 
         let s = socket.subscribe("/topic/alarm", async (msg) => {
             if (msg.body) {
                 const jsonBody = JSON.parse(msg.body);
+                dispatch(increaseNewAlarms());
                 if (isAll || (!isAll && jsonBody.networkDevice === currentDevice)) {
                     dispatch(addAlarm(jsonBody));
-                    dispatch(increaseNewAlarms());
                 }
             }
         });
@@ -104,7 +107,7 @@ export default () => {
         return () => {
             socket.unsubscribe(s.id);
         };
-    }, []);
+    }, [currentDevice]);
 
     let severityChartData = calculateSeverityChart(alarms);
     let conditionChartData = calculateConditionChart(alarms);
