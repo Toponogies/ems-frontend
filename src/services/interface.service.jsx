@@ -15,7 +15,7 @@ const fetchInterfaceByDevice = async (dispatch, deviceLabel) => {
 const add = async (dispatch, payload, currentDevice) => {
     try {
         const response = await createInterface(payload);
-        if (response.data.networkDevice === currentDevice)
+        if (currentDevice === null|| response.data.networkDevice === currentDevice)
             dispatch(addInterface(response.data));
     } catch (error) {
         return error.response;
